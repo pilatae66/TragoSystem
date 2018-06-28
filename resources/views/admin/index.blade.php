@@ -4,11 +4,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Admin</h4>
+                    <div class="card-header bg-success text-white">
+                        Admin
                     </div>
                     <div class="card-body">
-                        <table id="datatable" class="table">
+                        <table id="datatable" class="table table-bordered" style="width: 100%">
                             <thead>
                                 <tr>
                                     <td>Admin ID</td>
@@ -34,10 +34,13 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        <div class="pull-right">
+                            {{ $admins->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
 @endsection
