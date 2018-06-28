@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Subject extends Model
 {
-    public $incrementing = false;
+    //
 }

@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admin extends Model
 {
-    
+    protected $fillable = [
+        'firstname', 'lastname'
+    ];
+
+    protected $hidden = [
+        'password', 'token'
+    ];
+
+    public $incrementing = false;
 }
