@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Admin;
 
 class AdminController extends Controller
@@ -61,7 +62,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Admin $admin)
     {
         //
     }
@@ -86,7 +87,21 @@ class AdminController extends Controller
      */
     public function update(Request $request, Admin $admin)
     {
-        print($request->password);
+        $this->validate($request, [
+            'id' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+        ]);
+
+        $admin->id = $request->id;
+        $admin->firstname = $request->firstname;
+        $admin->lastname = $request->lastname;
+
+        $admin->save();
+
+        // return $admin;
+
+        return redirect('admin');
     }
 
     /**
@@ -95,8 +110,8 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Admin $admin)
     {
-        //
+        $admin->delete();
     }
 }
