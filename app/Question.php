@@ -14,7 +14,7 @@ class Question extends Model
 
     public function subject()
     {
-        return $this->hasOne(Subject::class, 'id', 'subjID');
+        return $this->belongsTo(Subject::class, 'subjID', 'id');
     }
 
     public function instructor()

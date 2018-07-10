@@ -3,8 +3,10 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Answer::class, function (Faker $faker) {
+
+    $questionID = App\Question::inRandomOrder()->first();
     return [
         'ansKey' => $faker->word,
-        'questionID' => App\Question::inRandomOrder()->first(),
+        'questionID' => $questionID->id,
     ];
 });
