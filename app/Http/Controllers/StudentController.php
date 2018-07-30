@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:students');
+    }
+
+    public function dashboard()
+    {
+        return view('student.dashboard');
+    }
+
     /**
      * Display a listing of the resource.
      *

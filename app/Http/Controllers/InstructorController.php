@@ -6,6 +6,15 @@ use Illuminate\Http\Request;
 
 class InstructorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:instructors');
+    }
+
+    public function dashboard()
+    {
+        return view('instructor.dashboard');
+    }
     /**
      * Display a listing of the resource.
      *

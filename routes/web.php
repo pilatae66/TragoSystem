@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Auth::routes();
@@ -35,6 +35,12 @@ Route::resource('answer', 'AnswerController');
 
 Route::resource('student', 'StudentController');
 
+Route::get('stud/dashboard', 'StudentController@dashboard')->name('student.dashboard');
+
+Route::get('stud/login', 'Student\LoginController@showLoginForm')->name('student.login');
+
+Route::post('stud/login', 'Student\LoginController@login')->name('student.login');
+
 //Scores routes
 
 Route::resource('score', 'ScoreController');
@@ -46,3 +52,11 @@ Route::resource('admin', 'AdminController');
 //Instructor routes
 
 Route::resource('instructor', 'InstructorController');
+
+Route::get('inst/login', 'Instructor\LoginController@showLoginForm')->name('instructor.login');
+
+Route::post('inst/login', 'Instructor\LoginController@login')->name('instructor.login');
+
+Route::get('inst/dashboard', 'InstructorController@dashboard')->name('instructor.dashboard');
+
+

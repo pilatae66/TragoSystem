@@ -5,14 +5,14 @@
 	<div class="row justify-content-center">
 		<div class="col-md-8">
 			<div class="card">
-				<div class="card-header text-white bg-dark">{{ __('Admin Login') }}</div>
+				<div class="card-header text-white bg-dark">{{ __('Student Login') }}</div>
 
 				<div class="card-body">
-					<form method="POST" action="{{ route('login') }}" aria-label="{{ __('Admin Login') }}">
+					<form method="POST" action="{{ route('student.login') }}" aria-label="{{ __('Student Login') }}">
 						@csrf
 
 						<div class="form-group row">
-							<label for="id" class="col-sm-4 col-form-label text-md-right">{{ __('Admin ID') }}</label>
+							<label for="id" class="col-sm-4 col-form-label text-md-right">{{ __('Student ID') }}</label>
 
 							<div class="col-md-6">
 								<input id="id" type="text" class="form-control{{ $errors->has('id') ? ' is-invalid' : '' }}" name="id" value="{{ old('id') }}" required autofocus>
@@ -49,7 +49,7 @@
 							</div>
 						</div>
 
-						<div class="form-group row mb-0">
+						<div class="form-group row">
 							<div class="col-md-8 offset-md-4">
 								<button type="submit" class="btn btn-primary">
 									{{ __('Login') }}
@@ -59,7 +59,18 @@
 									{{ __('Forgot Your Password?') }}
 								</a>
 							</div>
-						</div>
+                        </div>
+
+                        <div class="form-group row">
+                                <div class="col-md-6 offset-md-3">
+                                    <a class="btn btn-round btn-primary" href="{{ route('student.login') }}">
+                                        {{ __('Sign In as Student') }}
+                                    </a>
+                                    <a class="btn btn-round btn-primary" href="{{ route('instructor.login') }}">
+                                        {{ __('Sign In as Teacher') }}
+                                    </a>
+                                </div>
+                            </div>
 					</form>
 				</div>
 			</div>

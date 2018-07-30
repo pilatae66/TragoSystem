@@ -6,7 +6,7 @@
 			<div class="card">
 				<div class="card-header bg-dark text-white">Add Question</div>
 				<div class="card-body">
-					<form action="{{ route('question.store') }}" method="post">
+					<form action="{{ route('subject.store') }}" method="post">
 						@csrf
 
 						<div class="form-group">
@@ -47,21 +47,14 @@
 						</div>
 
 						<div class="form-group">
-							<label for="exampleInputEmail1">Subject</label>
-							<select class="form-control" name="subject" id="exampleInputEmail1">
-								<option selected hidden>Choose Subject</option>
-								@foreach ($subjects as $subject)
-								<option value="{{ $subject->id }}">{{ $subject->subTitle }}</option>
-								@endforeach
-							</select>
+							<label for="exampleInputEmail1">Instructor</label>
+							<input type="text" name="instructor" class="form-control {{ $errors->has('instructor') ? 'is-invalid' : '' }}" value="14-1377" aria-describedby="emailHelp" placeholder="Enter Password">
 							<div class="invalid-feedback">
-								{{ $errors->first('subject') }}
+								{{ $errors->first('instructor') }}
 							</div>
 						</div>
 
-						<input type="hidden" name="instructor" value="{{ Auth::user()->id }}">
-
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-success">Submit</button>
 					</form>
 				</div>
 			</div>

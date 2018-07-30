@@ -5,41 +5,35 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-dark text-white">
-                    Question List <a class="btn btn-default text-white" href="{{ route('question.create') }}"><i class="fa fa-plus"></i></a>
+                    Subjects <a class="btn btn-default text-white" href="{{ route('subject.create') }}"><i class="fa fa-plus"></i></a>
                 </div>
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered" style="width: 100%">
                         <thead>
                             <tr>
-                                <th>Question ID</th>
-                                <th>Question</th>
-                                <th>Question Type</th>
-                                <th>Category</th>
+                                <th>Subject ID</th>
                                 <th>Subject</th>
+                                <th>Instructor</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Question ID</th>
-                                <th>Question</th>
-                                <th>Question Type</th>
-                                <th>Category</th>
+                                <th>Subject ID</th>
                                 <th>Subject</th>
+                                <th>Instructor</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                            @forelse ($questions as $question)
+                            @forelse ($subjects as $subject)
                             <tr>
-                                <td class="text-center">{{ $question->id }}</td>
-                                <td>{{ $question->question }}</td>
-                                <td>{{ $question->questionType }}</td>
-                                <td>{{ $question->category }}</td>
-                                <td>{{ $question->subject->subTitle }}</td>
+                                <td>{{ $subject->id }}</td>
+                                <td>{{ $subject->subTitle }}</td>
+                                <td>{{ $subject->instructor->lastname }}</td>
                                 <td>
-                                    <a href="{{ route('question.edit', $question->id) }}" class="btn btn-info btn-sm" type="submit"><i class="fa fa-pencil-square-o"></i></a>
-                                    <form action="{{ route('question.destroy', $question->id) }}" style="display:inline-block" method="post">
+                                    <a href="{{ route('subject.edit', $subject->id) }}" class="btn btn-info btn-sm" type="submit"><i class="fa fa-pencil-square-o"></i></a>
+                                    <form action="{{ route('subject.destroy', $subject->id) }}" style="display:inline-block" method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash"></i></button>
@@ -54,7 +48,7 @@
                         </tbody>
                     </table>
                     <div class="pull-right">
-                        {{ $questions->links() }}
+                        {{ $subjects->links() }}
                     </div>
                 </div>
             </div>

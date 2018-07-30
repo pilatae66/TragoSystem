@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -34,7 +35,21 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @guest
 
+                        @else
+                            @if (Auth::guard('instructors')->check())
+                                <li class="{{ Request::path() === 'question' || Request::path() === 'question/create'  ? 'active': '' }}"><a class="nav-link" href="{{ route('question.index') }}">Questions</a></li>
+                                <li><a class="nav-link" href="#">Exams</a></li>
+                                <li><a class="nav-link" href="#">Students</a></li>
+                            @elseif (Auth::guard('students')->check())
+                                <li><a class="nav-link" href="#">My Exams</a></li>
+                            @elseif (Auth::guard('admins')->check())
+                                <li class="{{ Request::path() === 'subject' || Request::path() === 'subject/create'  ? 'active': '' }}"><a class="nav-link" href="{{ route('subject.index') }}">Subject</a></li>
+                                <li><a class="nav-link" href="#">Instructors</a></li>
+                                <li><a class="nav-link" href="#">Students</a></li>
+                            @endif
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->

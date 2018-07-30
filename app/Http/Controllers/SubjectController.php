@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admins');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,8 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = Subject::paginate(10);
+        return view('subject.index', compact('subjects'));
     }
 
     /**
@@ -24,7 +29,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('subject.create');
     }
 
     /**
