@@ -5,14 +5,14 @@
 	<div class="row justify-content-center">
 		<div class="col-md-8">
 			<div class="card">
-				<div class="card-header text-white bg-dark">{{ __('Teacher Login') }}</div>
+				<div class="card-header text-white bg-dark">{{ __('Instructor Login') }}</div>
 
 				<div class="card-body">
-					<form method="POST" action="{{ route('instructor.login') }}" aria-label="{{ __('Teacher Login') }}">
+					<form method="POST" action="{{ route('instructor.login') }}" aria-label="{{ __('Instructor Login') }}">
 						@csrf
 
 						<div class="form-group row">
-							<label for="id" class="col-sm-4 col-form-label text-md-right">{{ __('Teacher ID') }}</label>
+							<label for="id" class="col-sm-4 col-form-label text-md-right">{{ __('Instructor ID') }}</label>
 
 							<div class="col-md-6">
 								<input id="id" type="text" class="form-control{{ $errors->has('id') ? ' is-invalid' : '' }}" name="id" value="{{ old('id') }}" required autofocus>
@@ -68,7 +68,7 @@
 									{{ __('Sign In as Student') }}
 								</a>
 								<a class="btn btn-round btn-primary" href="{{ route('instructor.login') }}">
-									{{ __('Sign In as Teacher') }}
+									{{ __('Sign In as Instructor') }}
 								</a>
 							</div>
 						</div>

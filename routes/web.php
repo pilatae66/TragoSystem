@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('stud/login');
 });
 
 Auth::routes();
@@ -34,6 +34,10 @@ Route::resource('answer', 'AnswerController');
 //Student routes
 
 Route::resource('student', 'StudentController');
+
+Route::get('sub/{subject}/stud', 'StudentController@registerStudent')->name('stud.create');
+
+Route::post('sub/stud', 'StudentController@storeStudent')->name('stud.store');
 
 Route::get('stud/dashboard', 'StudentController@dashboard')->name('student.dashboard');
 
@@ -59,4 +63,12 @@ Route::post('inst/login', 'Instructor\LoginController@login')->name('instructor.
 
 Route::get('inst/dashboard', 'InstructorController@dashboard')->name('instructor.dashboard');
 
+//Exam routes
 
+Route::get('inst/exam', 'ExamController@index')->name('exam.index');
+
+Route::get('inst/exam/create', 'ExamController@create')->name('exam.create');
+
+Route::post('inst/exam', 'ExamController@store')->name('exam.store');
+
+Route::delete('inst/{exam}/exam', 'ExamController@destroy')->name('exam.destroy');

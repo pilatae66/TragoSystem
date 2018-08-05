@@ -40,7 +40,18 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'subject' => 'required',
+            'instructor' => 'required'
+        ]);
+
+        $subject = new Subject;
+        $subject->subTitle = $request->subject;
+        $subject->instID = $request->instructor;
+
+        $subject->save();
+
+        return redirect()->route('stud.create', $request->subject);
     }
 
     /**
@@ -85,6 +96,8 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $subject->delete();
+
+        return redirect()->route('subject.index');
     }
 }

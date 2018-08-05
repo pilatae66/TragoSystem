@@ -40,7 +40,7 @@
                         @else
                             @if (Auth::guard('instructors')->check())
                                 <li class="{{ Request::path() === 'question' || Request::path() === 'question/create'  ? 'active': '' }}"><a class="nav-link" href="{{ route('question.index') }}">Questions</a></li>
-                                <li><a class="nav-link" href="#">Exams</a></li>
+                                <li><a class="nav-link" href="{{ route('exam.index') }}">Exams</a></li>
                                 <li><a class="nav-link" href="#">Students</a></li>
                             @elseif (Auth::guard('students')->check())
                                 <li><a class="nav-link" href="#">My Exams</a></li>
@@ -56,12 +56,12 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
+                            </li> --}}
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Student::class, function (Faker $faker) {
     return [
-        'id' => $faker->bothify('##-####'),
+        'id' => '00-0000',
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
         'course' => $faker->randomElement($array = array ('BSIT','BSCS')),

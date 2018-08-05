@@ -67,7 +67,7 @@
                                         {{ __('Sign In as Student') }}
                                     </a>
                                     <a class="btn btn-round btn-primary" href="{{ route('instructor.login') }}">
-                                        {{ __('Sign In as Teacher') }}
+                                        {{ __('Sign In as Instructor') }}
                                     </a>
                                 </div>
                             </div>
