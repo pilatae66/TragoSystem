@@ -10,7 +10,7 @@ class ExamController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:students');
+        $this->middleware('auth:instructors');
     }
     /**
      * Display a listing of the resource.

@@ -18,6 +18,8 @@ class CreateQuestionsTable extends Migration
             $table->string('question');
             $table->string('questionType');
             $table->string('category');
+            $table->string('term');
+            $table->string('difficulty');
 
             $table->unsignedInteger('subjID');
             $table->foreign('subjID')

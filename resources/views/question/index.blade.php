@@ -34,7 +34,17 @@
                             <tr>
                                 <td class="text-center">{{ $question->id }}</td>
                                 <td>{{ $question->question }}</td>
-                                <td>{{ $question->questionType }}</td>
+                                <td>@switch($question->questionType)
+                                    @case('ToF')
+                                        True or False
+                                        @break
+                                    @case('Multiple')
+                                        Multiple Choice
+                                        @break
+                                    @default
+                                        {{ $question->questionType }}
+
+                                @endswitch</td>
                                 <td>{{ $question->category }}</td>
                                 <td>{{ $question->subject->subTitle }}</td>
                                 <td>
