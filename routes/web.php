@@ -72,3 +72,15 @@ Route::get('inst/exam/create', 'ExamController@create')->name('exam.create');
 Route::post('inst/exam', 'ExamController@store')->name('exam.store');
 
 Route::delete('inst/{exam}/exam', 'ExamController@destroy')->name('exam.destroy');
+
+Route::get('exam/tos/step1', 'ExamController@tosForm1')->name('exam.showTosStep1');
+
+Route::post('exam/tos/post1', 'ExamController@submitTos1')->name('tos.post1');
+
+Route::get('exam/tos/step2', 'ExamController@tosForm2')->name('exam.showTosStep2');
+
+Route::post('exam/tos/post2', 'ExamController@submitTos2')->name('tos.post2');
+
+Route::get('exam/tos/step3', 'ExamController@tosForm3')->name('exam.showTosStep3');
+
+Route::post('exam/tos/post3', 'ExamController@submitTos3')->name('tos.post3');

@@ -33,13 +33,16 @@
                             @forelse ($questions as $question)
                             <tr>
                                 <td class="text-center">{{ $question->id }}</td>
-                                <td>{{ $question->question }}</td>
+                                <td>{{ str_limit($question->question,20) }}</td>
                                 <td>@switch($question->questionType)
                                     @case('ToF')
                                         True or False
                                         @break
                                     @case('Multiple')
                                         Multiple Choice
+                                        @break
+                                    @case('Match')
+                                        Matching Type
                                         @break
                                     @default
                                         {{ $question->questionType }}

@@ -48,6 +48,8 @@ class QuestionController extends Controller
             'questionType' => 'required',
             'category' => 'required',
             'subject' => 'required',
+            'term' => 'required',
+            'difficulty' => 'required',
         ]);
 
         $question = new Question;
@@ -55,6 +57,8 @@ class QuestionController extends Controller
         $question->questionType = $request->questionType;
         $question->category = $request->category;
         $question->subjID = $request->subject;
+        $question->term = $request->term;
+        $question->difficulty = $request->difficulty;
         $question->instID = $request->instructor;
 
         $question->save();

@@ -57,6 +57,33 @@
 							<div class="invalid-feedback">
 								{{ $errors->first('subject') }}
 							</div>
+                        </div>
+
+						<div class="form-group">
+							<label for="exampleInputEmail1">Term</label>
+							<select class="form-control" name="term" id="exampleInputEmail1">
+								<option selected hidden>Choose Term</option>
+								<option value="Prelim">Prelim</option>
+								<option value="Midterm">Midterm</option>
+								<option value="Prefinal">Prefinal</option>
+								<option value="Final">Final</option>
+							</select>
+							<div class="invalid-feedback">
+								{{ $errors->first('term') }}
+							</div>
+                        </div>
+
+						<div class="form-group">
+							<label for="exampleInputEmail1">Difficulty</label>
+							<select class="form-control" name="difficulty" id="exampleInputEmail1">
+								<option selected hidden>Choose Difficulty</option>
+								<option value="Easy">Easy</option>
+								<option value="Medium">Medium</option>
+								<option value="Hard">Hard</option>
+							</select>
+							<div class="invalid-feedback">
+								{{ $errors->first('difficulty') }}
+							</div>
 						</div>
 
 						<input type="hidden" name="instructor" value="{{ Auth::user()->id }}">
