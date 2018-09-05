@@ -13,6 +13,7 @@
 						@csrf
 						<button class="btn btn-primary add-input">Add Input</button>
 						<button class="btn btn-success calculate">Submit</button>
+						<input type="hidden" name="exam_id">
 						<div class="inputs mt-3">
 							<div class="input">
 								<div class="row">
@@ -35,42 +36,37 @@
 										</div>
 									</div>
 									<div class="col">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Knowledge (%)</label>
-                                            <input type="text" name="knowledge[]" class="form-control topic {{ $errors->has('knowledge') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Knowledge Percentage">
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('knowledge') }}
-                                            </div>
-                                        </div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">Knowledge (%)</label>
+											<input type="text" name="knowledge[]" class="form-control topic {{ $errors->has('knowledge') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Knowledge Percentage">
+											<div class="invalid-feedback">
+												{{ $errors->first('knowledge') }}
+											</div>
+										</div>
 									</div>
 									<div class="col">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Understanding (%)</label>
-                                            <input type="text" name="understanding[]" class="form-control topic {{ $errors->has('understanding') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Understanding Percentage">
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('understanding') }}
-                                            </div>
-                                        </div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">Understanding (%)</label>
+											<input type="text" name="understanding[]" class="form-control topic {{ $errors->has('understanding') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Understanding Percentage">
+											<div class="invalid-feedback">
+												{{ $errors->first('understanding') }}
+											</div>
+										</div>
 									</div>
 									<div class="col">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Application (%)</label>
-                                            <input type="text" name="application[]" class="form-control topic {{ $errors->has('application') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Application Percentage">
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('application') }}
-                                            </div>
-                                        </div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">Application (%)</label>
+											<input type="text" name="application[]" class="form-control topic {{ $errors->has('application') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Application Percentage">
+											<div class="invalid-feedback">
+												{{ $errors->first('application') }}
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label for="exampleInputEmail1">Total No. of Items</label>
-							<input type="number" name="totalItems" class="form-control topic {{ $errors->has('totalItems') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Total Number of Items">
-							<div class="invalid-feedback">
-								{{ $errors->first('totalItems') }}
-							</div>
-						</div>
+						<input type="hidden" name="totalItems" value="{{ $exam->total_items }}">
+
 					</form>
 				</div>
 			</div>

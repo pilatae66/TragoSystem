@@ -47,6 +47,7 @@ class ExamController extends Controller
             'exam_time' => 'required',
             'exam_date' => 'required',
             'exam_room' => 'required',
+            'total_items' => 'required',
             'subject_id' => 'required',
             'instructor_id' => 'required'
         ]);
@@ -55,6 +56,7 @@ class ExamController extends Controller
         $exam->exam_time = $request->exam_time;
         $exam->exam_date = $request->exam_date;
         $exam->exam_room = $request->exam_room;
+        $exam->total_items = $request->total_items;
         $exam->subject_id = $request->subject_id;
         $exam->instructor_id = $request->instructor_id;
 
@@ -109,50 +111,6 @@ class ExamController extends Controller
         $exam->delete();
 
         return redirect()->route('exam.index');
-    }
-
-    public function tosForm1()
-    {
-        return view('exam.tos1');
-    }
-
-    public function submitTos1(Request $request)
-    {
-        $step1 = $request->validate([
-            'topics' => 'required',
-            'hours' => 'required',
-            'knowledge' => 'required',
-            'understanding' => 'required',
-            'application' => 'required',
-            'totalItems' => 'required|numeric',
-        ]);
-
-
-        $tos = [];
-        $tosInput = [];
-        $count = 0;
-
-        $tos['hoursTotalCount'] = array_sum($request->hours);
-
-        $tos['ratio'] = $request->totalItems / $tos['hoursTotalCount'];
-
-        $tos['totalTestItems'] = $request->totalItems;
-
-        foreach ($request->topics as $key => $topic) {
-            $tosInput[$key]['topic'] = $topic;
-            $tosInput[$key]['hours'] = $request->hours[$key];
-            $tosInput[$key]['knowledge'] = (($request->knowledge[$key] / 100) * ($tos['ratio'] * $request->hours[$key]));
-            $tosInput[$key]['understanding'] = (($request->understanding[$key] / 100) * ($tos['ratio'] * $request->hours[$key]));
-            $tosInput[$key]['application'] = (($request->application[$key] / 100) * ($tos['ratio'] * $request->hours[$key]));
-            $tosInput[$key]['TestItems'] = $tos['ratio'] * $request->hours[$key];
-            $tosInput[$key]['percentage'] = (($tos['ratio'] * $request->hours[$key]) / $request->totalItems) * 100;
-            $count += $request->hours[$key];
-        }
-
-        $request->session()->put('tos', $tos);
-        $request->session()->put('tosInput', $tosInput);
-
-        return redirect()->route('exam.showTosStep3');
     }
 
     public function tosForm2(Request $request)

@@ -18,7 +18,6 @@
 								</th>
 								<th class="text-center" colspan="3">COGNITIVE</th>
 								<th class="text-center" rowspan="2">Total Test Items</th>
-								<th class="text-center" rowspan="2">Item Placement</th>
 								<th class="text-center" rowspan="2">Percentage</th>
 								<tr>
 									<th class="text-center">Knowledge</th>
@@ -51,7 +50,6 @@
 								$applicationCount += round($tosInpt['application'])
 								@endphp
 								<td class="text-center">{{ round($tosInpt['TestItems']) }}</td>
-								<td class="text-center"></td>
 								<td class="text-center">{{ round($tosInpt['percentage']).'%' }}</td>
 								@php
 								$percentageCount += round($tosInpt['percentage'])
@@ -65,7 +63,6 @@
 								<td class="text-center">{{ $understandingCount }}</td>
 								<td class="text-center">{{ $applicationCount }}</td>
 								<td class="text-center">{{ round($tos['totalTestItems']) }}</td>
-								<td class="text-center"></td>
 								<td class="text-center">{{ $percentageCount.'%' }}</td>
 							</tr>
 						</tbody>

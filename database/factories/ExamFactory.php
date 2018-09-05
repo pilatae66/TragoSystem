@@ -6,6 +6,7 @@ $factory->define(App\Exam::class, function (Faker $faker) {
     return [
         'exam_time' => $faker->time($format = 'H:i:s', $max = 'now'),
         'exam_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
+        'total_items' => $faker->randomElement($array = array ('10', '20', '30', '40')),
         'exam_room' => $faker->randomElement($array = array ('A201', 'A202', 'A203', 'A204')),
         'subject_id' => App\Subject::inRandomOrder()->first()->id,
         'instructor_id' => App\User::inRandomOrder()->first()->id,

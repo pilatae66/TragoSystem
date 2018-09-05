@@ -18,6 +18,7 @@ class CreateExamsTable extends Migration
             $table->time('exam_time');
             $table->date('exam_date');
             $table->string('exam_room');
+            $table->string('total_items');
             $table->unsignedInteger('subject_id');
             $table->foreign('subject_id')
             ->references('id')->on('subjects')

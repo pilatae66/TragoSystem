@@ -73,9 +73,9 @@ Route::post('inst/exam', 'ExamController@store')->name('exam.store');
 
 Route::delete('inst/{exam}/exam', 'ExamController@destroy')->name('exam.destroy');
 
-Route::get('exam/tos/step1', 'ExamController@tosForm1')->name('exam.showTosStep1');
+Route::get('exam/{id}/tos/step1', 'TOSController@tosForm1')->name('exam.showTosStep1');
 
-Route::post('exam/tos/post1', 'ExamController@submitTos1')->name('tos.post1');
+Route::post('exam/tos/post1', 'TOSController@submitTos1')->name('tos.post1');
 
 Route::get('exam/tos/step2', 'ExamController@tosForm2')->name('exam.showTosStep2');
 

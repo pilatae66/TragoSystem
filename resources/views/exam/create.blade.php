@@ -26,6 +26,14 @@
                         </div>
 
                         <div class="form-group">
+							<label for="exampleInputEmail1">Total Items</label>
+							<input type="number" name="total_items" class="form-control {{ $errors->has('total_items') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Total Number of Items">
+							<div class="invalid-feedback">
+								{{ $errors->first('total_items') }}
+							</div>
+                        </div>
+
+                        <div class="form-group">
 							<label for="exampleInputEmail1">Exam Room</label>
                             <select name="exam_room" class="form-control {{ $errors->has('exam_room') ? 'is-invalid' : '' }}" aria-describedby="emailHelp">
                                 <option selected hidden value="">Choose Room...</option>
