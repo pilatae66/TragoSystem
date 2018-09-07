@@ -113,31 +113,13 @@ class ExamController extends Controller
         return redirect()->route('exam.index');
     }
 
-    public function tosForm2(Request $request)
-    {
-        return view('exam.tos2');
-    }
-
-    public function submitTos2(Request $request)
-    {
-        $tos = $request->session()->get('tos');
-
-        $tos['knowledge'] = $request->knowledge;
-        $tos['understanding'] = $request->understanding;
-        $tos['application'] = $request->application;
-
-        // return $tos;
-        $request->session()->put('tos', $tos);
-
-        return redirect()->route('exam.showTosStep3');
-    }
-
     public function tosForm3(Request $request)
     {
         $tos = $request->session()->get('tos');
         $tosInput = $request->session()->get('tosInput');
+        $questionnaire = $request->session()->get('questionnaire');
         // return $step1;
-        return view('exam.tos3', compact('tos', 'tosInput'));
+        return view('exam.tos3', compact('tos', 'tosInput', 'questionnaire'));
     }
 
     public function submitTos3(Request $request)

@@ -62,7 +62,7 @@
 								<td class="text-center">{{ $knowledgeCount }}</td>
 								<td class="text-center">{{ $understandingCount }}</td>
 								<td class="text-center">{{ $applicationCount }}</td>
-								<td class="text-center">{{ round($tos['totalTestItems']) }}</td>
+								<td class="text-center">{{ round($tos['total_test_items']) }}</td>
 								<td class="text-center">{{ $percentageCount.'%' }}</td>
 							</tr>
 						</tbody>
@@ -78,7 +78,7 @@
 					Questionnaire
 				</div>
 				<div class="card-body">
-                    @for ($i = 0; $i < round($tos['totalTestItems']); $i++)
+                    @for ($i = 0; $i < round($tos['total_test_items']); $i++)
                         <div class="row mt-5">
                             <div class="col-md-11 mr-auto ml-auto">
                                 <div class="row mb-5">

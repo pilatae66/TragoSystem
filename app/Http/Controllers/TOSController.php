@@ -19,7 +19,7 @@ class TOSController extends Controller
             $tos = [];
             $tosInput = TOS::where('exam_id', $id)->get();
             $tos['hoursTotalCount'] = $tosInput->sum('hours_spent');
-            $tos['totalTestItems'] = $tosInput->sum('total_test_items');
+            $tos['total_test_items'] = $tosInput->sum('total_test_items');
             $questionnaire = Questionnaire::where('exam_id', $id)->inRandomOrder()->get();
             // return $questionnaire;
             return view('exam.tos3', compact('tos', 'tosInput', 'questionnaire'));
@@ -53,7 +53,7 @@ class TOSController extends Controller
 
         $tos['ratio'] = $request->totalItems / $tos['hoursTotalCount'];
 
-        $tos['totalTestItems'] = $request->totalItems;
+        $tos['total_test_items'] = $request->totalItems;
 
         foreach ($request->topics as $key => $topic) {
             $tosInput[$key]['topic'] = $topic;
@@ -71,11 +71,11 @@ class TOSController extends Controller
             }
             $toss = new TOS;
             $toss->topic = $tosInput[$key]['topic'];
-            $toss->hours_spent = round($tosInput[$key]['hours']);
+            $toss->hours_spent = round($tosInput[$key]['hours_spent']);
             $toss->knowledge = round($tosInput[$key]['knowledge']);
             $toss->understanding = round($tosInput[$key]['understanding']);
             $toss->application = round($tosInput[$key]['application']);
-            $toss->total_test_items = round($tosInput[$key]['TestItems']);
+            $toss->total_test_items = round($tosInput[$key]['total_test_items']);
             $toss->percentage = round($tosInput[$key]['percentage']);
             $toss->exam_id = $request->exam_id;
 
@@ -85,9 +85,30 @@ class TOSController extends Controller
         // return $cognitive;
         // return $toss;
 
+        $questionnaire = Questionnaire::where('exam_id', $request->exam_id)->inRandomOrder()->get();
 
         $request->session()->put('tos', $tos);
         $request->session()->put('tosInput', $tosInput);
+        $request->session()->put('questionnaire', $questionnaire);
+
+        return redirect()->route('exam.showTosStep3');
+    }
+
+    public function tosForm2(Request $request)
+    {
+        return view('exam.tos2');
+    }
+
+    public function submitTos2(Request $request)
+    {
+        $tos = $request->session()->get('tos');
+
+        $tos['knowledge'] = $request->knowledge;
+        $tos['understanding'] = $request->understanding;
+        $tos['application'] = $request->application;
+
+        // return $tos;
+        $request->session()->put('tos', $tos);
 
         return redirect()->route('exam.showTosStep3');
     }
