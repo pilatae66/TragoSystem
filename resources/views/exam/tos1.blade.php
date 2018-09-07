@@ -66,6 +66,7 @@
 							</div>
 						</div>
 						<input type="hidden" name="totalItems" value="{{ $exam->total_items }}">
+						<input type="hidden" name="exam_id" value="{{ $exam->id }}">
 
 					</form>
 				</div>

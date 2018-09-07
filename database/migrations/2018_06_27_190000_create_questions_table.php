@@ -18,18 +18,19 @@ class CreateQuestionsTable extends Migration
             $table->string('question');
             $table->string('questionType');
             $table->string('category');
-            $table->string('term');
-            $table->string('difficulty');
+            $table->string('topic');
 
             $table->unsignedInteger('subjID');
             $table->foreign('subjID')
             ->references('id')->on('subjects')
-            ->onDelete('cascade');
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
 
             $table->string('instID');
             $table->foreign('instID')
             ->references('id')->on('users')
-            ->onDelete('cascade');
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

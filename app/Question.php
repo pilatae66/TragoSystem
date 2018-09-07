@@ -19,6 +19,10 @@ class Question extends Model
 
     public function instructor()
     {
-        return $this->hasOne(User::class, 'id', 'instID');
+        return $this->hasOne(User::class, 'instID', 'id');
+    }
+
+    public function answers(){
+        return $this->hasMany(Answer::class, 'questionID', 'id');
     }
 }

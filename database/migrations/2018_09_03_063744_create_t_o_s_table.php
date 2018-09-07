@@ -20,6 +20,8 @@ class CreateTOSTable extends Migration
             $table->integer('knowledge');
             $table->integer('understanding');
             $table->integer('application');
+            $table->integer('total_test_items');
+            $table->integer('percentage');
             $table->unsignedInteger('exam_id');
             $table->foreign('exam_id')
             ->references('id')->on('exams')
