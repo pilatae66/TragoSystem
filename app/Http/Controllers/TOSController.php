@@ -19,9 +19,10 @@ class TOSController extends Controller
             $tos = [];
             $tosInput = TOS::where('exam_id', $id)->get();
             $tos['hoursTotalCount'] = $tosInput->sum('hours_spent');
-            $tos['total_test_items'] = $tosInput->sum('total_test_items');
+            $tos['total_test_items'] = $tosInput->sum('total_items');
             $questionnaire = Questionnaire::where('exam_id', $id)->inRandomOrder()->get();
             // return $questionnaire;
+            // return $tos['hoursTotalCount'];
             return view('exam.tos3', compact('tos', 'tosInput', 'questionnaire'));
         }
         else {
@@ -60,7 +61,7 @@ class TOSController extends Controller
             $tosInput[$key]['knowledge'] = (($request->knowledge[$key] / 100) * ($tos['ratio'] * $request->hours[$key]));
             $tosInput[$key]['understanding'] = (($request->understanding[$key] / 100) * ($tos['ratio'] * $request->hours[$key]));
             $tosInput[$key]['application'] = (($request->application[$key] / 100) * ($tos['ratio'] * $request->hours[$key]));
-            $tosInput[$key]['total_test_items'] = $tos['ratio'] * $request->hours[$key];
+            $tosInput[$key]['total_items'] = $tos['ratio'] * $request->hours[$key];
             $tosInput[$key]['percentage'] = (($tos['ratio'] * $request->hours[$key]) / $request->totalItems) * 100;
             $count += $request->hours[$key];
             $cognitive[$key] = $request->knowledge[$key] + $request->application[$key] + $request->understanding[$key];
@@ -74,6 +75,7 @@ class TOSController extends Controller
             $toss->knowledge = round($tosInput[$key]['knowledge']);
             $toss->understanding = round($tosInput[$key]['understanding']);
             $toss->application = round($tosInput[$key]['application']);
+            $toss->total_items = round($tosInput[$key]['total_items']);
             $toss->percentage = round($tosInput[$key]['percentage']);
             $toss->exam_id = $request->exam_id;
 

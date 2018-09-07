@@ -49,7 +49,7 @@
 								@php
 								$applicationCount += round($tosInpt['application'])
 								@endphp
-								<td class="text-center">{{ round($tosInpt['total_test_items']) }}</td>
+								<td class="text-center">{{ round($tosInpt['total_items']) }}</td>
 								<td class="text-center">{{ round($tosInpt['percentage']).'%' }}</td>
 								@php
 								$percentageCount += round($tosInpt['percentage'])
