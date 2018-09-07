@@ -48,13 +48,11 @@ class TOSController extends Controller
 
         $cognitive = [];
 
-        $exam = Exam::find($exam->id);
-
         $tos['hoursTotalCount'] = array_sum($request->hours);
 
         $tos['ratio'] = $request->totalItems / $tos['hoursTotalCount'];
 
-        $tos['total_test_items'] = $exam->total_test_items;
+        $tos['total_test_items'] = $request->totalItems;
 
         foreach ($request->topics as $key => $topic) {
             $tosInput[$key]['topic'] = $topic;
@@ -76,7 +74,6 @@ class TOSController extends Controller
             $toss->knowledge = round($tosInput[$key]['knowledge']);
             $toss->understanding = round($tosInput[$key]['understanding']);
             $toss->application = round($tosInput[$key]['application']);
-            $toss->total_test_items = round($tosInput[$key]['total_test_items']);
             $toss->percentage = round($tosInput[$key]['percentage']);
             $toss->exam_id = $request->exam_id;
 
