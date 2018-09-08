@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Question;
 use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth:instructors');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +26,11 @@ class AnswerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($question)
     {
-        //
+        $question = Question::find($question);
+        // return $question;
+        return view('answer.create', compact('question'));
     }
 
     /**
@@ -35,7 +41,7 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

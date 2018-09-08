@@ -19,7 +19,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::paginate(10);
+        $questions = Question::all();
 
         return view('question.index', compact('questions'));
     }
@@ -31,8 +31,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $subjects = Subject::all();
-        return view('question.create', compact('subjects'));
+        return view('question.create');
     }
 
     /**
@@ -43,27 +42,24 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $this->validate($request, [
-            'question' => 'required',
+            'question' => 'required|string',
             'questionType' => 'required',
             'category' => 'required',
-            'subject' => 'required',
-            'term' => 'required',
-            'difficulty' => 'required',
+            'topic' => 'required|string',
         ]);
 
         $question = new Question;
         $question->question = $request->question;
         $question->questionType = $request->questionType;
         $question->category = $request->category;
-        $question->subjID = $request->subject;
-        $question->term = $request->term;
-        $question->difficulty = $request->difficulty;
+        $question->topic = $request->topic;
         $question->instID = $request->instructor;
 
         $question->save();
 
-        return redirect('question');
+        return redirect()->route('question.answer.create', compact('question'));
     }
 
     /**
@@ -85,7 +81,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('question.edit', compact('question'));
     }
 
     /**
@@ -97,7 +93,23 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        // return $request;
+        $this->validate($request, [
+            'question' => 'required|string',
+            'questionType' => 'required',
+            'category' => 'required',
+            'topic' => 'required|string',
+        ]);
+
+        $question->question = $request->question;
+        $question->questionType = $request->questionType;
+        $question->category = $request->category;
+        $question->topic = $request->topic;
+        $question->instID = $request->instructor;
+
+        $question->save();
+
+        return redirect()->route('question.index');
     }
 
     /**
@@ -108,6 +120,8 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        return redirect()->route('question.index');
     }
 }

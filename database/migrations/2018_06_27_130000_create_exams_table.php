@@ -19,14 +19,12 @@ class CreateExamsTable extends Migration
             $table->date('exam_date');
             $table->string('exam_room');
             $table->string('total_items');
-            $table->unsignedInteger('subject_id');
-            $table->foreign('subject_id')
-            ->references('id')->on('subjects')
-            ->onDelete('cascade');
+            $table->string('subject');
             $table->string('instructor_id');
             $table->foreign('instructor_id')
             ->references('id')->on('users')
-            ->onDelete('cascade');
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

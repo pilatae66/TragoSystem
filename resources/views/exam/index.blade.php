@@ -8,11 +8,10 @@
 					Exams <a class="btn btn-default text-white" href="{{ route('exam.create') }}"><i class="fa fa-plus"></i></a>
 				</div>
 				<div class="card-body">
-					<table id="datatable" class="table table-bordered" style="width: 100%">
+					<table id="datatable" class="table table-striped table-bordered" style="width:100%">
 						<thead>
 							<tr>
 								<th>Exam ID</th>
-								<th>Subject</th>
 								<th>Exam Time</th>
 								<th>Exam Date</th>
 								<th>Exam Room</th>
@@ -23,7 +22,6 @@
 						<tfoot>
 							<tr>
 								<th>Exam ID</th>
-								<th>Subject</th>
 								<th>Exam Time</th>
 								<th>Exam Date</th>
 								<th>Exam Room</th>
@@ -35,7 +33,6 @@
 							@forelse ($exams as $exam)
 							<tr>
 								<td>{{ $exam->id }}</td>
-								<td>{{ $exam->subject->subTitle }}</td>
 								<td>{{ Carbon\Carbon::parse($exam->exam_time)->format('h:m:A') }}</td>
 								<td>{{ Carbon\Carbon::parse($exam->exam_date)->format('M d, Y') }}</td>
 								<td>{{ $exam->exam_room }}</td>

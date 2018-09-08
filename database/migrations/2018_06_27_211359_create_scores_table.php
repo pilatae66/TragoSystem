@@ -15,24 +15,18 @@ class CreateScoresTable extends Migration
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->increments('id');
-
             $table->integer('score');
-
-            $table->unsignedInteger('subjID');
-            $table->foreign('subjID')
-            ->references('id')->on('subjects')
-            ->onDelete('cascade');
-
-            $table->string('instID');
-            $table->foreign('instID')
-            ->references('id')->on('users')
-            ->onDelete('cascade');
-
-            $table->string('studID');
-            $table->foreign('studID')
+            $table->string('scoreType');
+            $table->unsignedInteger('exam_id');
+            $table->foreign('exam_id')
+            ->references('id')->on('exams')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->string('student_id');
+            $table->foreign('student_id')
             ->references('id')->on('students')
-            ->onDelete('cascade');
-
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

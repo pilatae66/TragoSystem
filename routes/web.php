@@ -19,10 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Subject routes
-
-Route::resource('subject', 'SubjectController');
-
 //Question routes
 
 Route::resource('question', 'QuestionController');
@@ -30,6 +26,8 @@ Route::resource('question', 'QuestionController');
 //Answer routes
 
 Route::resource('answer', 'AnswerController');
+
+Route::get('question/{question}/answer/create', 'AnswerController@create')->name('question.answer.create');
 
 //Student routes
 

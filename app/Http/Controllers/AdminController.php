@@ -8,6 +8,9 @@ use App\Admin;
 
 class AdminController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth:admins');
+    }
     /**
      * Display a listing of the resource.
      *

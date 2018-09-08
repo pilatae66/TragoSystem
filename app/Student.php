@@ -17,4 +17,8 @@ class Student extends Authenticatable
         'remember_token', 'password'
     ];
     public $incrementing = false;
+
+    public function getFullNameAttribute(){
+        return $this->firstname . " " . $this->lastname;
+    }
 }

@@ -18,11 +18,13 @@ class CreateQuestionnairesTable extends Migration
             $table->unsignedInteger('question_id');
             $table->foreign('question_id')
             ->references('id')->on('questions')
-            ->onDelete('cascade');
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->unsignedInteger('exam_id');
             $table->foreign('exam_id')
             ->references('id')->on('exams')
-            ->onDelete('cascade');
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -14,11 +14,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         factory(App\User::class, 1)->create();
         factory(App\Student::class, 1)->create();
-        factory(App\Subject::class, 1)->create();
         factory(App\Question::class, 10)->create();
         factory(App\Answer::class, 10)->create();
-        factory(App\Score::class, 10)->create();
         factory(App\Exam::class, 1)->create();
+        factory(App\Score::class, 10)->create();
         factory(App\Questionnaire::class, 10)->create();
     }
 }

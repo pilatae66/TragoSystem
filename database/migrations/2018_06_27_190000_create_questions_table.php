@@ -20,12 +20,6 @@ class CreateQuestionsTable extends Migration
             $table->string('category');
             $table->string('topic');
 
-            $table->unsignedInteger('subjID');
-            $table->foreign('subjID')
-            ->references('id')->on('subjects')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-
             $table->string('instID');
             $table->foreign('instID')
             ->references('id')->on('users')

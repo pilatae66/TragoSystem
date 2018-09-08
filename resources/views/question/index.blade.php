@@ -8,14 +8,13 @@
                     Question List <a class="btn btn-default text-white" href="{{ route('question.create') }}"><i class="fa fa-plus"></i></a>
                 </div>
                 <div class="card-body">
-                    <table id="datatable" class="table table-bordered" style="width: 100%">
+                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Question ID</th>
                                 <th>Question</th>
                                 <th>Question Type</th>
                                 <th>Category</th>
-                                <th>Subject</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -25,7 +24,6 @@
                                 <th>Question</th>
                                 <th>Question Type</th>
                                 <th>Category</th>
-                                <th>Subject</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>
@@ -49,7 +47,6 @@
 
                                 @endswitch</td>
                                 <td>{{ $question->category }}</td>
-                                <td>{{ $question->subject->subTitle }}</td>
                                 <td>
                                     <a href="{{ route('question.edit', $question->id) }}" class="btn btn-info btn-sm" type="submit"><i class="fa fa-pencil-square-o"></i></a>
                                     <form action="{{ route('question.destroy', $question->id) }}" style="display:inline-block" method="post">
@@ -66,9 +63,6 @@
                             @endforelse
                         </tbody>
                     </table>
-                    <div class="pull-right">
-                        {{ $questions->links() }}
-                    </div>
                 </div>
             </div>
         </div>

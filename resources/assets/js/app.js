@@ -6,3 +6,5 @@
  */
 
 require('./bootstrap');
+require('./jquery.dataTables.min')
+require('./dataTables.bootstrap4.min')
