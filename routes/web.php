@@ -33,8 +33,6 @@ Route::get('question/{question}/answer/create', 'AnswerController@create')->name
 
 Route::resource('student', 'StudentController');
 
-Route::get('sub/{subject}/stud', 'StudentController@registerStudent')->name('stud.create');
-
 Route::post('sub/stud', 'StudentController@storeStudent')->name('stud.store');
 
 Route::get('stud/dashboard', 'StudentController@dashboard')->name('student.dashboard');

@@ -14,7 +14,7 @@
 								<th>Exam ID</th>
 								<th>Exam Time</th>
 								<th>Exam Date</th>
-								<th>Exam Room</th>
+								<th>Total Items</th>
 								<th>Instructor</th>
 								<th>Actions</th>
 							</tr>
@@ -24,7 +24,7 @@
 								<th>Exam ID</th>
 								<th>Exam Time</th>
 								<th>Exam Date</th>
-								<th>Exam Room</th>
+								<th>Total Items</th>
 								<th>Instructor</th>
 								<th>Actions</th>
 							</tr>
@@ -35,7 +35,7 @@
 								<td>{{ $exam->id }}</td>
 								<td>{{ Carbon\Carbon::parse($exam->exam_time)->format('h:m:A') }}</td>
 								<td>{{ Carbon\Carbon::parse($exam->exam_date)->format('M d, Y') }}</td>
-								<td>{{ $exam->exam_room }}</td>
+								<td>{{ $exam->total_items }}</td>
 								<td>{{ $exam->instructor->fullName }}</td>
 								<td>
 									<a href="#" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o"></i></a>

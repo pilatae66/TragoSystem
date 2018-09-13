@@ -33,34 +33,8 @@
 							</div>
                         </div>
 
-                        <div class="form-group">
-							<label for="exampleInputEmail1">Exam Room</label>
-                            <select name="exam_room" class="form-control {{ $errors->has('exam_room') ? 'is-invalid' : '' }}" aria-describedby="emailHelp">
-                                <option selected hidden value="">Choose Room...</option>
-                                <option value="A201">A201</option>
-                                <option value="A202">A202</option>
-                                <option value="A203">A203</option>
-                                <option value="A204">A204</option>
-                            </select>
-							<div class="invalid-feedback">
-								{{ $errors->first('exam_room') }}
-							</div>
-                        </div>
-
-                        <div class="form-group">
-							<label for="exampleInputEmail1">Subject</label>
-                            <select name="subject_id" class="form-control {{ $errors->has('subject_id') ? 'is-invalid' : '' }}" aria-describedby="emailHelp">
-                                <option selected hidden value="">Choose Subject...</option>
-                                @foreach ($subjects as $subject)
-                                    <option value="{{ $subject->id }}">{{ $subject->subTitle }}</option>
-                                @endforeach
-                            </select>
-							<div class="invalid-feedback">
-								{{ $errors->first('subject_id') }}
-							</div>
-                        </div>
-
                         <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}">
+
 
 						<button type="submit" class="btn btn-success">Submit</button>
 					</form>

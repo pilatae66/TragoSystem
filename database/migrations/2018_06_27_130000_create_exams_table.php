@@ -17,7 +17,6 @@ class CreateExamsTable extends Migration
             $table->increments('id');
             $table->time('exam_time');
             $table->date('exam_date');
-            $table->string('exam_room');
             $table->string('total_items');
             $table->string('subject');
             $table->string('instructor_id');

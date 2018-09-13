@@ -30,7 +30,6 @@ class ExamController extends Controller
      */
     public function create()
     {
-        $subjects = Subject::all();
         return view('exam.create', compact('subjects'));
     }
 
@@ -46,18 +45,15 @@ class ExamController extends Controller
         $this->validate($request, [
             'exam_time' => 'required',
             'exam_date' => 'required',
-            'exam_room' => 'required',
             'total_items' => 'required',
-            'subject_id' => 'required',
             'instructor_id' => 'required'
         ]);
 
         $exam = new Exam;
         $exam->exam_time = $request->exam_time;
         $exam->exam_date = $request->exam_date;
-        $exam->exam_room = $request->exam_room;
         $exam->total_items = $request->total_items;
-        $exam->subject_id = $request->subject_id;
+        $exam->subject = 'Intro to Computing';
         $exam->instructor_id = $request->instructor_id;
 
         $exam->save();
