@@ -251,6 +251,7 @@ class StudentController extends Controller
         $status->exam_id = $exam->id;
         $status->save();
 
+        toast('Exam Submitted Successfully','success','top');
         return redirect()->route('student.dashboard');
     }
 }

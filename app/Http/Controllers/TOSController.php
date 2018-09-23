@@ -118,7 +118,7 @@ class TOSController extends Controller
 			$request->session()->put('tos', $tos);
 			$request->session()->put('tosInput', $tosInput);
 			if(Questionnaire::where('exam_id', $request->exam_id)->count() > 0){
-				return redirect()->route('exam.showTosStep3');
+				return redirect()->route('exam.showTosStep3',$request->exam_id);
 			}
 			else{
 				return redirect()->route('exam.showTosStep2');
@@ -140,6 +140,7 @@ class TOSController extends Controller
 			$types = $request->test_type;
 			$cog = session()->get('cog');
 			$exam_id = session()->get('exam_id');
+			$exam = Exam::find($exam_id);
 			// return $tosInput[0][$cog[0]];
 			$questions = Question::all();
 			$questionnaire = new Collection();
@@ -159,38 +160,48 @@ class TOSController extends Controller
 					}
 				}
 			}
-			// return $questionnaire;
-			$test_number = 1;
-			$l=0;
-			while ($l < $questionnaire->count()) {
-				if($questionnaire[$l] == "Test 1"){
-					$test_number = 1;
+			// return $exam->total_items;
+			if($questionnaire->count()-$cog->count() != $exam->total_items){
+				$tos = TOS::where('exam_id', $exam_id)->get();
+				foreach ($tos as $key => $value) {
+					$value->delete();
+				}
+				toast('Questions are not sufficient for the system to generate a questionnaire!','error','top')->autoClose(5000);
+				return redirect()->route('exam.index');
+			}else{
+				// return $questionnaire;
+				$test_number = 1;
+				$l=0;
+				while ($l < $questionnaire->count()) {
+					if($questionnaire[$l] == "Test 1"){
+						$test_number = 1;
+						$l++;
+					}
+					else if($questionnaire[$l] == "Test 2"){
+						$test_number = 2;
+						$l++;
+					}
+					else if($questionnaire[$l] == "Test 3"){
+						$test_number = 3;
+						$l++;
+					}
+					
+					// print($test_number);
+					
+					$quest = new Questionnaire;
+					$quest->test_number = $test_number;
+					$quest->question_id = $questionnaire[$l];
+					$quest->exam_id = $exam_id;
+					$quest->save();
 					$l++;
 				}
-				else if($questionnaire[$l] == "Test 2"){
-					$test_number = 2;
-					$l++;
-				}
-				else if($questionnaire[$l] == "Test 3"){
-					$test_number = 3;
-					$l++;
-				}
-
-				// print($test_number);
-				
-				$quest = new Questionnaire;
-				$quest->test_number = $test_number;
-				$quest->question_id = $questionnaire[$l];
-				$quest->exam_id = $exam_id;
-				$quest->save();
-				$l++;
+				// return view('home');
+				// return $request;
+				$types = $request->test_type;
+				// return $types;
+				$request->session()->put('types', $types);
+				return redirect()->route('exam.showTosStep3', $exam_id);
 			}
-			// return view('home');
-			// return $request;
-			$types = $request->test_type;
-			// return $types;
-			$request->session()->put('types', $types);
-			return redirect()->route('exam.showTosStep3', $exam_id);
 		}
 		
 		public function tosForm3($id, Request $request)
