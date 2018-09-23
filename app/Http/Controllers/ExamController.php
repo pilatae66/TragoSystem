@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Exam;
 use App\Subject;
 use Illuminate\Http\Request;
+use App\Question;
+use Auth;
+use App\Answer;
+use App\Questionnaire;
 
 class ExamController extends Controller
 {
@@ -50,6 +54,7 @@ class ExamController extends Controller
         ]);
 
         $exam = new Exam;
+        $exam->exam_title = $request->exam_title;
         $exam->exam_time = $request->exam_time;
         $exam->exam_date = $request->exam_date;
         $exam->total_items = $request->total_items;
@@ -108,18 +113,11 @@ class ExamController extends Controller
 
         return redirect()->route('exam.index');
     }
-
-    public function tosForm3(Request $request)
+    public function showExamStats(Exam $exam)
     {
-        $tos = $request->session()->get('tos');
-        $tosInput = $request->session()->get('tosInput');
-        $questionnaire = $request->session()->get('questionnaire');
-        // return $step1;
-        return view('exam.tos3', compact('tos', 'tosInput', 'questionnaire'));
-    }
-
-    public function submitTos3(Request $request)
-    {
-        return redirect()->route('exam.showTosStep3');
+        $highest = $exam->scores->sortByDesc('score')->take(5);
+        $lowest = $exam->scores->sortBy('score')->take(5);
+        // return $highest;
+        return view('exam.dashboard', compact('exam', 'highest', 'lowest'));
     }
 }

@@ -22,6 +22,10 @@ class Question extends Model
         return $this->hasOne(User::class, 'instID', 'id');
     }
 
+    public function answer(){
+        return $this->hasOne(Answer::class, 'questionID', 'id');
+    }
+
     public function answers(){
         return $this->hasMany(Answer::class, 'questionID', 'id');
     }

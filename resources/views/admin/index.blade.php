@@ -5,15 +5,13 @@
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header bg-dark text-white">
-					Exams <a class="btn btn-default btn-sm text-white pull-right" href="{{ route('exam.create') }}"><i class="fa fa-plus"></i> Add Exam</a>
+					Exams <a class="btn btn-default text-white" href="{{ route('exam.create') }}"><i class="fa fa-plus"></i></a>
 				</div>
 				<div class="card-body">
-					<h5 class="card-title">Exam List</h5>
 					<table id="datatable" class="table table-striped table-bordered" style="width:100%">
 						<thead>
 							<tr>
 								<th>Exam ID</th>
-								<th>Exam Title</th>
 								<th>Exam Time</th>
 								<th>Exam Date</th>
 								<th>Total Items</th>
@@ -24,7 +22,6 @@
 						<tfoot>
 							<tr>
 								<th>Exam ID</th>
-								<th>Exam Title</th>
 								<th>Exam Time</th>
 								<th>Exam Date</th>
 								<th>Total Items</th>
@@ -36,14 +33,12 @@
 							@forelse ($exams as $exam)
 							<tr>
 								<td>{{ $exam->id }}</td>
-								<td>{{ $exam->exam_title }}</td>
 								<td>{{ Carbon\Carbon::parse($exam->exam_time)->format('h:m:A') }}</td>
 								<td>{{ Carbon\Carbon::parse($exam->exam_date)->format('M d, Y') }}</td>
 								<td>{{ $exam->total_items }}</td>
 								<td>{{ $exam->instructor->fullName }}</td>
 								<td>
 									<a href="#" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o"></i></a>
-									<a href="{{ route('exam.showExamStats', $exam->id) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
 									<a href="{{ route('exam.showTosStep1', $exam->id) }}" class="btn btn-info btn-sm"><i class="fa fa-cog"></i></a>
 									<form action="{{ route('exam.destroy', $exam->id) }}" style="display:inline-block" method="post">
 										@csrf

@@ -10,8 +10,16 @@
                         @csrf
 
                         <div class="form-group">
+							<label for="exampleInputEmail1">Exam Title</label>
+							<input type="text" name="exam_title" class="form-control {{ $errors->has('exam_title') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Exam Title">
+							<div class="invalid-feedback">
+								{{ $errors->first('exam_title') }}
+							</div>
+						</div>
+						
+                        <div class="form-group">
 							<label for="exampleInputEmail1">Exam Time</label>
-							<input type="time" name="exam_time" class="form-control {{ $errors->has('exam_time') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Question">
+							<input type="time" name="exam_time" class="form-control {{ $errors->has('exam_time') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Exam Time">
 							<div class="invalid-feedback">
 								{{ $errors->first('exam_time') }}
 							</div>
@@ -19,7 +27,7 @@
 
                         <div class="form-group">
 							<label for="exampleInputEmail1">Exam Date</label>
-							<input type="date" name="exam_date" class="form-control {{ $errors->has('exam_date') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Question">
+							<input type="date" name="exam_date" class="form-control {{ $errors->has('exam_date') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Exam Date">
 							<div class="invalid-feedback">
 								{{ $errors->first('exam_date') }}
 							</div>

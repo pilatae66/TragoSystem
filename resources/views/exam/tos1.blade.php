@@ -81,8 +81,7 @@
 		$('.add-input').on('click', () => {
 			input = $('.input').last().clone()
 			$('.inputs').append(input)
-			console.log(input)
-			return false;
+			return false
 		})
 	})
 </script>

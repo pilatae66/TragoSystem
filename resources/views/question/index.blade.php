@@ -5,9 +5,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-dark text-white">
-                    Question List <a class="btn btn-default text-white" href="{{ route('question.create') }}"><i class="fa fa-plus"></i></a>
+                    Questions <a class="btn btn-default btn-sm text-white pull-right" href="{{ route('question.create') }}"><i class="fa fa-plus"></i> Add Question</a>
                 </div>
                 <div class="card-body">
+                    <h5 class="card-title">Question List</h5>
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>

@@ -47,7 +47,7 @@
                             <label for="exampleInputEmail1">Answer Key # 1</label>
 
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="exampleCheck1" name="is_answer_key" value="key1">
+                                <input type="radio" class="form-check-input" id="exampleCheck1" name="is_answer_key" value="1">
                                 <label class="form-check-label" for="exampleCheck1">Answer Key?</label>
                             </div>
                             <input type="text" name="answer_key[]" class="form-control {{ $errors->has('answer_key') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Question">
@@ -59,7 +59,7 @@
                             <label for="exampleInputEmail1">Answer Key # 2</label>
 
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="exampleCheck1" name="is_answer_key" value="key2">
+                                <input type="radio" class="form-check-input" id="exampleCheck1" name="is_answer_key" value="2">
                                 <label class="form-check-label" for="exampleCheck1">Answer Key?</label>
                             </div>
                             <input type="text" name="answer_key[]" class="form-control {{ $errors->has('answer_key') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Question">
@@ -71,7 +71,7 @@
                             <label for="exampleInputEmail1">Answer Key # 3</label>
 
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="exampleCheck1" name="is_answer_key" value="key3">
+                                <input type="radio" class="form-check-input" id="exampleCheck1" name="is_answer_key" value="3">
                                 <label class="form-check-label" for="exampleCheck1">Answer Key?</label>
                             </div>
                             <input type="text" name="answer_key[]" class="form-control {{ $errors->has('answer_key') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Question">
@@ -82,7 +82,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Answer Key # 4</label>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="exampleCheck1" name="is_answer_key" value="key4">
+                                <input type="radio" class="form-check-input" id="exampleCheck1" name="is_answer_key" value="4">
                                 <label class="form-check-label" for="exampleCheck1">Answer Key?</label>
                             </div>
                             <input type="text" name="answer_key[]" class="form-control {{ $errors->has('answer_key') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Question">

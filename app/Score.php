@@ -15,7 +15,7 @@ class Score extends Model
 
     public function student()
     {
-        return $this->hasOne(Student::class, 'id', 'studID');
+        return $this->belongsTo(Student::class);
     }
 
     public function subject()

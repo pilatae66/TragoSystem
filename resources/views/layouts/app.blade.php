@@ -41,12 +41,12 @@
                             @if (Auth::guard('instructors')->check())
                                 <li class="{{ Request::path() === 'question' || Request::path() === 'question/create'  ? 'active': '' }}"><a class="nav-link" href="{{ route('question.index') }}">Questions</a></li>
                                 <li><a class="nav-link" href="{{ route('exam.index') }}">Exams</a></li>
-                                <li><a class="nav-link" href="{{ route('student.index') }}">Students</a></li>
+                                <li><a class="nav-link" href="{{ route('inst.studentIndex') }}">Students</a></li>
                             @elseif (Auth::guard('students')->check())
                                 <li><a class="nav-link" href="#">My Exams</a></li>
                             @elseif (Auth::guard('admins')->check())
-                                <li><a class="nav-link" href="#">Instructors</a></li>
-                                <li><a class="nav-link" href="#">Students</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.instructorIndex') }}">Instructors</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.studentIndex') }}">Students</a></li>
                             @endif
                         @endguest
                     </ul>

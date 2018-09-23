@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Admin;
+use App\User;
+use App\Student;
 
 class AdminController extends Controller
 {
@@ -116,5 +118,86 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         $admin->delete();
+    }
+
+    public function dashboard(){
+        return view('admin.dashboard');
+    }
+
+    public function instructorIndex()
+    {
+        $instructors = User::all();
+
+        return view('admin.instructorIndex', compact('instructors'));
+    }
+
+    public function instructorEdit($inst)
+    {   
+        $instructor = User::find($inst);
+        return view('instructor.edit', compact('instructor'));
+    }
+
+    public function instructorUpdate($id, Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+        ]);
+
+        $user = User::find($id);
+        $user->id = $request->id;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->save();
+
+        return redirect()->route('admin.instructorIndex');
+    }
+
+    public function instructorDestroy($inst)
+    {   
+        $instructor = User::find($inst);
+        $instructor->delete();
+        return redirect()->route('admin.instructorIndex');
+    }
+
+    public function studentIndex()
+    {
+        $students = Student::all();
+
+        return view('admin.studentIndex', compact('students'));
+    }
+
+    public function studentEdit(Student $student)
+    {  
+        return view('student.edit', compact('student'));
+    }
+
+    public function studentUpdate(Student $student, Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+        ]);
+
+        $student->firstname = $request->firstname;
+        $student->lastname = $request->lastname;
+        $student->year = $request->year;
+        $student->course = $request->course;
+        $student->save();
+
+        return redirect()->route('admin.studentIndex');
+    }
+
+    public function studentDestroy(Student $student)
+    {   
+        $student->delete();
+        return redirect()->route('admin.studentIndex');
+    }
+
+    public function createStudent()
+    {
+        return view('student.create');
     }
 }

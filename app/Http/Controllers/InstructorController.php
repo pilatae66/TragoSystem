@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Student;
 
 class InstructorController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:instructors');
+        $this->middleware('auth:instructors')->except('create', 'store');
     }
 
     public function dashboard()
@@ -32,7 +34,7 @@ class InstructorController extends Controller
      */
     public function create()
     {
-        //
+        return view('instructor.create');
     }
 
     /**
@@ -43,7 +45,21 @@ class InstructorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'id' => 'required',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'password' => 'required|string|min:6|confirmed'
+        ]);
+
+        $user = new User;
+        $user->id = $request->id;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return redirect()->route('instructor.login');
     }
 
     /**
@@ -89,5 +105,12 @@ class InstructorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function studentIndex()
+    {
+        $students = Student::all();
+
+        return view('student.index', compact('students'));
     }
 }

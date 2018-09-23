@@ -41,7 +41,43 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        // return $request;
+        if(!is_array($request->answer_key)){
+            $answer = new Answer;
+            $answer->ansKey = $request->answer_key;
+            $answer->isAnswerKey = 1;
+            $answer->questionID = $request->question_id;
+            $answer->save();
+        }
+        elseif(count($request->answer_key) > 0 && $request->has('is_answer_key')){
+            foreach ($request->answer_key as $key => $value) {
+                if ($request->is_answer_key == $key+1) {
+                    $answer = new Answer;
+                    $answer->ansKey = $value;
+                    $answer->isAnswerKey = 1;
+                    $answer->questionID = $request->question_id;
+                    $answer->save();
+                }
+                else{
+                    $answer = new Answer;
+                    $answer->ansKey = $value;
+                    $answer->isAnswerKey = 0;
+                    $answer->questionID = $request->question_id;
+                    $answer->save();
+                }
+            }
+        }
+        elseif(count($request->answer_key) > 0 && !$request->has('is_answer_key')) {
+            foreach ($request->answer_key as $key => $value) {
+                $answer = new Answer;
+                $answer->ansKey = $value;
+                $answer->isAnswerKey = 1;
+                $answer->questionID = $request->question_id;
+                $answer->save();
+            }
+        }
+
+        return redirect()->route('question.index');
     }
 
     /**

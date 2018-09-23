@@ -15,32 +15,24 @@
 							<div class="input">
 								<div class="row">
 									<div class="col-md-12">
-										<div class="form-group">
-											<label for="exampleInputEmail1">Knowledge</label>
-											<input type="text" name="knowledge" class="form-control topic {{ $errors->has('knowledge') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Knowledge Percentage">
-											<div class="invalid-feedback">
-												{{ $errors->first('knowledge') }}
+										@for ($i = 0; $i < $cognitive; $i++)		
+											<div class="col-md-12">
+												<div class="form-group">
+													<label for="exampleInputEmail1">Test {{ $i+1 }} Type</label>
+													<select name="test_type[]" id="" class="form-control">
+														<option selected hidden value="">Choose Test Type</option>
+														<option value="Identification">Identification</option>
+														<option value="Multiple">Multiple Choice</option>
+														<option value="ToF">True or False</option>
+														<option value="Enumeration">Enumeration</option>
+														<option value="Essay">Essay</option>
+													</select>
+													<div class="invalid-feedback">
+														{{ $errors->first('application') }}
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<label for="exampleInputEmail1">Understanding</label>
-											<input type="text" name="understanding" class="form-control topic {{ $errors->has('understanding') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Understanding Percentage">
-											<div class="invalid-feedback">
-												{{ $errors->first('understanding') }}
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<label for="exampleInputEmail1">Application</label>
-											<input type="text" name="application" class="form-control topic {{ $errors->has('application') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Application Percentage">
-											<div class="invalid-feedback">
-												{{ $errors->first('application') }}
-											</div>
-										</div>
-									</div>
+										@endfor
 								</div>
 							</div>
 						</div>

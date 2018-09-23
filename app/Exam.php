@@ -19,4 +19,14 @@ class Exam extends Model
     {
         return $this->hasOne(User::class, 'id', 'instructor_id');
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Questionnaire::class);
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
 }

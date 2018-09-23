@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
         factory(App\User::class, 1)->create();
         factory(App\Student::class, 1)->create();
         factory(App\Question::class, 100)->create();
-        factory(App\Answer::class, 10)->create();
+        factory(App\Answer::class, 100)->create();
         factory(App\Exam::class, 1)->create();
         factory(App\Score::class, 10)->create();
-        factory(App\Questionnaire::class, 50)->create();
+        factory(App\Questionnaire::class, 100)->create();
     }
 }
