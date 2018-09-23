@@ -26,6 +26,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('question', 'QuestionController');
 
+Route::get('questions/{question}/dashboard', 'QuestionController@dashboard')->name('question.dashboard');
+
 //Answer routes
 
 Route::resource('answer', 'AnswerController');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Question;
 use App\Subject;
 use Illuminate\Http\Request;
+use App\ItemAnalysis;
 
 class QuestionController extends Controller
 {
@@ -123,5 +124,11 @@ class QuestionController extends Controller
         $question->delete();
 
         return redirect()->route('question.index');
+    }
+
+    public function dashboard(Question $question)
+    {
+        $items = ItemAnalysis::where('question_id', $question->id)->get();
+        return view('question.dashboard', compact('items'));
     }
 }

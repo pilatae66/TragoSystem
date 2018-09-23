@@ -10,6 +10,7 @@ use App\Questionnaire;
 use App\Score;
 use Auth;
 use App\ExamStatus;
+use App\ItemAnalysis;
 
 class StudentController extends Controller
 {
@@ -142,30 +143,92 @@ class StudentController extends Controller
 
     public function submitExam(Exam $exam, Request $request)
     {
+        // return $request->answer;
         $score = 0;
         foreach ($exam->questions as $key => $question) {
             // return $question->questions->answer->ansKey;
             switch ($question->questions->questionType) {
                 case 'Identification':
-                    if($question->questions->answer->ansKey == $request->answer[$key]['answer']){
+                    if($question->questions->answer->ansKey == $request->answer[$key]){
                         $score++;
+                        $item = new ItemAnalysis;
+                        $item->question_id = $question->questions->id;
+                        $item->status = 'Correct';
+                        $item->student_id = Auth::user()->id;
+                        $item->save();
+                    }
+                    else{
+                        $item = new ItemAnalysis;
+                        $item->question_id = $question->questions->id;
+                        $item->status = 'Incorrect';
+                        $item->student_id = Auth::user()->id;
+                        $item->save();
                     }
                     break;
                 
                 case 'ToF':
-                    # code...
+                    if($question->questions->answer->ansKey == $request->answer[$key]){
+                        $score++;
+                        $item = new ItemAnalysis;
+                        $item->question_id = $question->questions->id;
+                        $item->status = 'Correct';
+                        $item->student_id = Auth::user()->id;
+                        $item->save();
+                    }
+                    else{
+                        $item = new ItemAnalysis;
+                        $item->question_id = $question->questions->id;
+                        $item->status = 'Incorrect';
+                        $item->student_id = Auth::user()->id;
+                        $item->save();
+                    }
                     break;
                 
                 case 'Multiple':
-                    # code...
+                // return $question->questions->answer->where('isAnswerKey', 1)->where('questionID',$question->questions->id)->get();
+                    if($question->questions->answer->where('isAnswerKey', 1)->where('questionID',$question->questions->id)->first()->ansKey == $request->answer[$key]){
+                        $score++;
+                        $item = new ItemAnalysis;
+                        $item->question_id = $question->questions->id;
+                        $item->status = 'Correct';
+                        $item->student_id = Auth::user()->id;
+                        $item->save();
+                    }
+                    else{
+                        $item = new ItemAnalysis;
+                        $item->question_id = $question->questions->id;
+                        $item->status = 'Incorrect';
+                        $item->student_id = Auth::user()->id;
+                        $item->save();
+                    }
                     break;
-                
-                case 'Essay':
-                    # code...
-                    break;
-                
+                    
                 case 'Enumeration':
-                    # code...
+                // return $question->questions->answers->count();
+                    $count = 0;
+                    foreach ($question->questions->answers as $key1 => $answer) {
+                        for ($i=0; $i < count($request->answer[$key]); $i++) { 
+                            # code...
+                            if($answer->ansKey == $request->answer[$key][$i]){
+                                $count++;
+                            }
+                        }
+                    }
+                    if ($count == $question->questions->answers->count()) {
+                        $score++;
+                        $item = new ItemAnalysis;
+                        $item->question_id = $question->questions->id;
+                        $item->status = 'Correct';
+                        $item->student_id = Auth::user()->id;
+                        $item->save();
+                    }
+                    else{
+                        $item = new ItemAnalysis;
+                        $item->question_id = $question->questions->id;
+                        $item->status = 'Incorrect';
+                        $item->student_id = Auth::user()->id;
+                        $item->save(); 
+                    }
                     break;
                 
                 default:

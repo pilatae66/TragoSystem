@@ -49,6 +49,7 @@
                                 @endswitch</td>
                                 <td>{{ $question->category }}</td>
                                 <td>
+                                    <a href="{{ route('question.dashboard', $question->id) }}" class="btn btn-info btn-sm" type="submit"><i class="fa fa-eye"></i></a>
                                     <a href="{{ route('question.edit', $question->id) }}" class="btn btn-info btn-sm" type="submit"><i class="fa fa-pencil-square-o"></i></a>
                                     <form action="{{ route('question.destroy', $question->id) }}" style="display:inline-block" method="post">
                                             @csrf
