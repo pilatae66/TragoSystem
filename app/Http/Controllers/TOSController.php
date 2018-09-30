@@ -135,72 +135,57 @@ class TOSController extends Controller
 		public function submitTos2(Request $request)
 		{
 			// return $request;
+			$exam_id = session()->get('exam_id');
 			$tos = $request->session()->get('tos');
-			$tosInput = $request->session()->get('tosInput');
+			$tosInput = TOS::where('exam_id', $exam_id)->get();
 			$types = $request->test_type;
 			$cog = session()->get('cog');
-			$exam_id = session()->get('exam_id');
 			$exam = Exam::find($exam_id);
 			// return $tosInput[0][$cog[0]];
 			$questions = Question::all();
-			$questionnaire = new Collection();
-			// return $questions;
-			for ($i=0; $i < $cog->count(); $i++) { 
-				$questionnaire->push('Test '.($i+1));
-				foreach ($tosInput as $key => $tos) {
-					for ($j=0; $j < $tos[$cog[$i]]; $j++) { 
-						for ($c=0; $c < 99; $c++) { 
-							$question = $questions->where('questionType', $types[$i])->where('category',ucfirst($cog[$i]))->shuffle()->first();
-							// return $question;
-							if(!$questionnaire->contains($question['id'])){
-								$questionnaire->push($question['id']);
-							}
-							continue;
-						}
-					}
-				}
-			}
-			// return $exam->total_items;
-			if($questionnaire->count()-$cog->count() != $exam->total_items){
-				$tos = TOS::where('exam_id', $exam_id)->get();
-				foreach ($tos as $key => $value) {
-					$value->delete();
-				}
-				toast('Questions are not sufficient for the system to generate a questionnaire!','error','top')->autoClose(5000);
-				return redirect()->route('exam.index');
-			}else{
-				// return $questionnaire;
-				$test_number = 1;
-				$l=0;
-				while ($l < $questionnaire->count()) {
-					if($questionnaire[$l] == "Test 1"){
-						$test_number = 1;
-						$l++;
-					}
-					else if($questionnaire[$l] == "Test 2"){
-						$test_number = 2;
-						$l++;
-					}
-					else if($questionnaire[$l] == "Test 3"){
-						$test_number = 3;
-						$l++;
-					}
-					
-					// print($test_number);
-					
+			$questionnaire = [];
+			$knowledge = $tosInput->sum('knowledge');
+			$understanding = $tosInput->sum('understanding');
+			$application = $tosInput->sum('application');
+			$cogni = [$knowledge, $understanding, $application];
+			$cogniu = [];
+			$key = 0;
+			// return $cogni[0];
+			// return $tosInput;
+			// print($question['id']. " ");
+			for ($i=0; $i < count($cogni); $i++) { 
+				// return $cog->count();
+				// $questionnaire[]='Test '.($i+1);
+				for ($j=0; $j < $cogni[$i]; $j++) {
+					// print($cogni[$i]. " ");
+					$questionnaire = Questionnaire::where('exam_id',$exam_id)->select(['question_id'])->get();
+					// foreach ($questionnaire as $key => $q) {
+					// 	$cogniu[] = $q->id;
+					// }
+					$question = Question::where('questionType', $types[$i])->where('category',ucfirst($cog[$i]))->whereNotIn('id', $questionnaire->toArray())->inRandomOrder()->first();
 					$quest = new Questionnaire;
-					$quest->test_number = $test_number;
-					$quest->question_id = $questionnaire[$l];
+					$quest->test_number = $i;
+					$quest->question_id = $question->id;
 					$quest->exam_id = $exam_id;
 					$quest->save();
-					$l++;
+					// print($question);
 				}
+			}
+			// return Questionnaire::where('exam_id',$exam_id)->count();
+			if(Questionnaire::where('exam_id',$exam_id)->count() >= $exam->total_items){
 				// return view('home');
 				// return $request;
 				$types = $request->test_type;
 				// return $types;
 				$request->session()->put('types', $types);
 				return redirect()->route('exam.showTosStep3', $exam_id);
+			}else{
+				$tos = TOS::where('exam_id', $exam_id)->get();
+				foreach ($tos as $key => $value) {
+					$value->delete();
+				}
+				toast('Questions are not sufficient for the system to generate a questionnaire!','error','top')->autoClose(5000);
+				return redirect()->route('exam.index');
 			}
 		}
 		
