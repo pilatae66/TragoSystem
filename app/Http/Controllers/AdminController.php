@@ -20,9 +20,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::paginate(10);
-
-        return view('admin.index', compact('admins'));
+        return view('home');
     }
 
     /**
