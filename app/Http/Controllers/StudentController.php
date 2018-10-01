@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Exam;
 use App\Questionnaire;
 use App\Score;
+use Carbon\Carbon;
 use Auth;
 use App\ExamStatus;
 use App\ItemAnalysis;
@@ -22,7 +23,7 @@ class StudentController extends Controller
     public function dashboard()
     {
         $statuses = ExamStatus::where('student_id', Auth::user()->id)->get();
-        $exams = Exam::all();
+        $exams = Exam::where('exam_date', Carbon::now()->toDateString())->get();
         foreach ($exams as $key => $exam) {
             foreach ($statuses as $key => $status) {
                 if($status->exam_id == $exam->id){

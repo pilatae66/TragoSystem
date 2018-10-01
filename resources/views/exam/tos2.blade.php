@@ -25,7 +25,6 @@
 														<option value="Multiple">Multiple Choice</option>
 														<option value="ToF">True or False</option>
 														<option value="Enumeration">Enumeration</option>
-														<option value="Essay">Essay</option>
 													</select>
 													<div class="invalid-feedback">
 														{{ $errors->first('application') }}
