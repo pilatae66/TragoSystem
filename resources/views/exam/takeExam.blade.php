@@ -74,6 +74,7 @@
 @section('script')
 	<script>
 		let time = new Date()
+		// let timing = new Date()
 		let timing = time.setMinutes(time.getMinutes() + {{ $exam->duration }})
 
 		decreaseTimer = () => {
@@ -86,7 +87,9 @@
 				$('#timer').html(hours+":"+minutes+":"+seconds)
 				if(timer < 0){
 					clearInterval(x)
-					swal('Times up!', '','info')
+					swal('Times up!', '','info').then(() => {
+						window.location.href = '{{ route('student.dashboard') }}'
+					})
 				}
 			}, 1000);
 		}
