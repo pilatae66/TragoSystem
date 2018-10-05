@@ -30,7 +30,14 @@
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Answer Key</label>
-                            <input type="text" name="answer_key" class="form-control {{ $errors->has('answer_key') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Question">
+                            <input type="text" name="answer_key[]" class="form-control {{ $errors->has('answer_key') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Question">
+                            <div class="invalid-feedback">
+                                {{ $errors->first('answer_key') }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Alternate Answer Key</label>
+                            <input type="text" name="answer_key[]" class="form-control {{ $errors->has('answer_key') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Question">
                             <div class="invalid-feedback">
                                 {{ $errors->first('answer_key') }}
                             </div>

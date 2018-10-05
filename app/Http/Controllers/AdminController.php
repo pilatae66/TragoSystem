@@ -129,6 +129,24 @@ class AdminController extends Controller
         return view('admin.instructorIndex', compact('instructors'));
     }
 
+    public function instructorStore(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|unique:users',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string'
+        ]);
+
+        $user = new User;
+        $user->id = $request->id;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->save();
+
+        return redirect()->route('admin.instructorIndex');
+    }
+
+
     public function instructorEdit($inst)
     {   
         $instructor = User::find($inst);
@@ -197,5 +215,26 @@ class AdminController extends Controller
     public function createStudent()
     {
         return view('student.create');
+    }
+
+    public function studentStore(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required|unique:students',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'year' => 'required|string',
+            'course' => 'required|string',
+        ]);
+
+        $student = new Student;
+        $student->id = $request->id;
+        $student->firstname = $request->firstname;
+        $student->lastname = $request->lastname;
+        $student->year = $request->year;
+        $student->course = $request->course;
+        $student->save();
+
+        return redirect()->route('admin.studentIndex');
     }
 }

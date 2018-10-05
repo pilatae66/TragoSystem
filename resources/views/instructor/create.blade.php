@@ -6,7 +6,7 @@
 			<div class="card">
 				<div class="card-header bg-dark text-white">Add Instructor</div>
 				<div class="card-body">
-					<form action="{{ route('inst.store') }}" method="post">
+					<form action="{{ route('admin.instructorStore') }}" method="post">
 						@csrf
 						<div class="col-md-12 mb-3">
 							<div class="form-group">
@@ -32,24 +32,6 @@
 								<input type="text" name="lastname" class="form-control topic {{ $errors->has('lastname') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter ID Lastname">
 								<div class="invalid-feedback">
 									{{ $errors->first('lastname') }}
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12 mb-3">
-							<div class="form-group">
-								<label for="exampleInputEmail1">Password</label>
-								<input type="password" name="password" class="form-control topic {{ $errors->has('password') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Password">
-								<div class="invalid-feedback">
-									{{ $errors->first('password') }}
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12 mb-3">
-							<div class="form-group">
-								<label for="exampleInputEmail1">Confirm Password</label>
-								<input type="password" name="password_confirmation" class="form-control topic {{ $errors->has('password-confirm') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Retype Password">
-								<div class="invalid-feedback">
-									{{ $errors->first('password-confirm') }}
 								</div>
 							</div>
 						</div>

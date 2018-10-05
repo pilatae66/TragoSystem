@@ -6,7 +6,7 @@
 			<div class="card">
 				<div class="card-header bg-dark text-white">Add Student</div>
 				<div class="card-body">
-					<form action="{{ route('student.store') }}" method="post">
+					<form action="{{ route('admin.studentStore') }}" method="post">
 						@csrf
 						<div class="col-md-12 mb-3">
 							<div class="form-group">
@@ -59,24 +59,6 @@
 									<option value="4th">4th</option>
 								</select>								<div class="invalid-feedback">
 									{{ $errors->first('year') }}
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12 mb-3">
-							<div class="form-group">
-								<label for="exampleInputEmail1">Password</label>
-								<input type="password" name="password" class="form-control topic {{ $errors->has('password') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Password">
-								<div class="invalid-feedback">
-									{{ $errors->first('password') }}
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12 mb-3">
-							<div class="form-group">
-								<label for="exampleInputEmail1">Confirm Password</label>
-								<input type="password" name="password_confirmation" class="form-control topic {{ $errors->has('password-confirm') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Retype Password">
-								<div class="invalid-feedback">
-									{{ $errors->first('password-confirm') }}
 								</div>
 							</div>
 						</div>

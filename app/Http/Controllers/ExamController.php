@@ -50,6 +50,7 @@ class ExamController extends Controller
             'exam_time' => 'required',
             'exam_date' => 'required',
             'total_items' => 'required',
+            'duration' => 'required',
             'instructor_id' => 'required'
         ]);
 
@@ -58,6 +59,7 @@ class ExamController extends Controller
         $exam->exam_time = $request->exam_time;
         $exam->exam_date = $request->exam_date;
         $exam->total_items = $request->total_items;
+        $exam->duration = $request->duration;
         $exam->subject = 'Intro to Computing';
         $exam->instructor_id = $request->instructor_id;
 

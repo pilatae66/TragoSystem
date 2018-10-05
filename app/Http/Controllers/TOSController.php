@@ -163,11 +163,17 @@ class TOSController extends Controller
 					// 	$cogniu[] = $q->id;
 					// }
 					$question = Question::where('questionType', $types[$i])->where('category',ucfirst($cog[$i]))->whereNotIn('id', $questionnaire->toArray())->inRandomOrder()->first();
-					$quest = new Questionnaire;
-					$quest->test_number = $i;
-					$quest->question_id = $question->id;
-					$quest->exam_id = $exam_id;
-					$quest->save();
+					if (!empty($question->id)) {
+						$quest = new Questionnaire;
+						$quest->test_number = $i;
+						$quest->question_id = $question->id;
+						$quest->exam_id = $exam_id;
+						$quest->save();
+					}
+					else{
+						toast('Questions are not sufficient for the system to generate a questionnaire!','error','top')->autoClose(5000);
+						return redirect()->route('exam.index');
+					}
 					// print($question);
 				}
 			}

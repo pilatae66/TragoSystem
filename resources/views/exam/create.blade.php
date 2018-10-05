@@ -39,6 +39,14 @@
 							<div class="invalid-feedback">
 								{{ $errors->first('total_items') }}
 							</div>
+						</div>
+						
+                        <div class="form-group">
+							<label for="exampleInputEmail1">Duration</label>
+							<input type="number" name="duration" class="form-control {{ $errors->has('duration') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Total Duration in MINUTES">
+							<div class="invalid-feedback">
+								{{ $errors->first('duration') }}
+							</div>
                         </div>
 
                         <input type="hidden" name="instructor_id" value="{{ Auth::user()->id }}">

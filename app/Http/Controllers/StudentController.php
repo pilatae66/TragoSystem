@@ -71,7 +71,6 @@ class StudentController extends Controller
             'lastname' => 'required|string',
             'year' => 'required|string',
             'course' => 'required|string',
-            'password' => 'required|string|min:6|confirmed'
         ]);
 
         $student = new Student;
@@ -80,7 +79,6 @@ class StudentController extends Controller
         $student->lastname = $request->lastname;
         $student->year = $request->year;
         $student->course = $request->course;
-        $student->password = bcrypt($request->password);
         $student->save();
 
         return redirect()->route('student.login');
@@ -139,120 +137,128 @@ class StudentController extends Controller
     public function takeExam(Exam $exam)
     {
         $questionnaire = Questionnaire::where('exam_id', $exam->id)->get();
-        return view('exam.takeExam', compact('questionnaire'));
+        return view('exam.takeExam', compact('questionnaire','exam'));
     }
 
     public function submitExam(Exam $exam, Request $request)
     {
-        // return $request->answer;
+        // return count($request->answer);
+        $questionnaire_count = Questionnaire::where('exam_id', $exam->id)->count();
+        // return $questionnaire_count;
         $score = 0;
-        foreach ($exam->questions as $key => $question) {
-            // return $question->questions->answer->ansKey;
-            switch ($question->questions->questionType) {
-                case 'Identification':
-                    if($question->questions->answer->ansKey == $request->answer[$key]){
-                        $score++;
-                        $item = new ItemAnalysis;
-                        $item->question_id = $question->questions->id;
-                        $item->status = 'Correct';
-                        $item->student_id = Auth::user()->id;
-                        $item->save();
-                    }
-                    else{
-                        $item = new ItemAnalysis;
-                        $item->question_id = $question->questions->id;
-                        $item->status = 'Incorrect';
-                        $item->student_id = Auth::user()->id;
-                        $item->save();
-                    }
-                    break;
-                
-                case 'ToF':
-                    if($question->questions->answer->ansKey == $request->answer[$key]){
-                        $score++;
-                        $item = new ItemAnalysis;
-                        $item->question_id = $question->questions->id;
-                        $item->status = 'Correct';
-                        $item->student_id = Auth::user()->id;
-                        $item->save();
-                    }
-                    else{
-                        $item = new ItemAnalysis;
-                        $item->question_id = $question->questions->id;
-                        $item->status = 'Incorrect';
-                        $item->student_id = Auth::user()->id;
-                        $item->save();
-                    }
-                    break;
-                
-                case 'Multiple':
-                // return $question->questions->answer->where('isAnswerKey', 1)->where('questionID',$question->questions->id)->get();
-                    if($question->questions->answer->where('isAnswerKey', 1)->where('questionID',$question->questions->id)->first()->ansKey == $request->answer[$key]){
-                        $score++;
-                        $item = new ItemAnalysis;
-                        $item->question_id = $question->questions->id;
-                        $item->status = 'Correct';
-                        $item->student_id = Auth::user()->id;
-                        $item->save();
-                    }
-                    else{
-                        $item = new ItemAnalysis;
-                        $item->question_id = $question->questions->id;
-                        $item->status = 'Incorrect';
-                        $item->student_id = Auth::user()->id;
-                        $item->save();
-                    }
-                    break;
+        if ($questionnaire_count == count($request->answer)) {
+            foreach ($exam->questions as $key => $question) {
+                // return $question->questions->answer->ansKey;
+                switch ($question->questions->questionType) {
+                    case 'Identification':
+                        if($question->questions->answer->ansKey == $request->answer[$key]){
+                            $score++;
+                            $item = new ItemAnalysis;
+                            $item->question_id = $question->questions->id;
+                            $item->status = 'Correct';
+                            $item->student_id = Auth::user()->id;
+                            $item->save();
+                        }
+                        else{
+                            $item = new ItemAnalysis;
+                            $item->question_id = $question->questions->id;
+                            $item->status = 'Incorrect';
+                            $item->student_id = Auth::user()->id;
+                            $item->save();
+                        }
+                        break;
                     
-                case 'Enumeration':
-                // return $question->questions->answers->count();
-                    $count = 0;
-                    foreach ($question->questions->answers as $key1 => $answer) {
-                        for ($i=0; $i < count($request->answer[$key]); $i++) { 
-                            # code...
-                            if($answer->ansKey == $request->answer[$key][$i]){
-                                $count++;
+                    case 'ToF':
+                        if($question->questions->answer->ansKey == $request->answer[$key]){
+                            $score++;
+                            $item = new ItemAnalysis;
+                            $item->question_id = $question->questions->id;
+                            $item->status = 'Correct';
+                            $item->student_id = Auth::user()->id;
+                            $item->save();
+                        }
+                        else{
+                            $item = new ItemAnalysis;
+                            $item->question_id = $question->questions->id;
+                            $item->status = 'Incorrect';
+                            $item->student_id = Auth::user()->id;
+                            $item->save();
+                        }
+                        break;
+                    
+                    case 'Multiple':
+                    // return $question->questions->answer->where('isAnswerKey', 1)->where('questionID',$question->questions->id)->get();
+                        if($question->questions->answer->where('isAnswerKey', 1)->where('questionID',$question->questions->id)->first()->ansKey == $request->answer[$key]){
+                            $score++;
+                            $item = new ItemAnalysis;
+                            $item->question_id = $question->questions->id;
+                            $item->status = 'Correct';
+                            $item->student_id = Auth::user()->id;
+                            $item->save();
+                        }
+                        else{
+                            $item = new ItemAnalysis;
+                            $item->question_id = $question->questions->id;
+                            $item->status = 'Incorrect';
+                            $item->student_id = Auth::user()->id;
+                            $item->save();
+                        }
+                        break;
+                        
+                    case 'Enumeration':
+                    // return $question->questions->answers->count();
+                        $count = 0;
+                        foreach ($question->questions->answers as $key1 => $answer) {
+                            for ($i=0; $i < count($request->answer[$key]); $i++) { 
+                                # code...
+                                if($answer->ansKey == $request->answer[$key][$i]){
+                                    $count++;
+                                }
                             }
                         }
-                    }
-                    if ($count == $question->questions->answers->count()) {
-                        $score++;
-                        $item = new ItemAnalysis;
-                        $item->question_id = $question->questions->id;
-                        $item->status = 'Correct';
-                        $item->student_id = Auth::user()->id;
-                        $item->save();
-                    }
-                    else{
-                        $item = new ItemAnalysis;
-                        $item->question_id = $question->questions->id;
-                        $item->status = 'Incorrect';
-                        $item->student_id = Auth::user()->id;
-                        $item->save(); 
-                    }
-                    break;
-                
-                default:
-                    # code...
-                    break;
+                        if ($count == $question->questions->answers->count()) {
+                            $score++;
+                            $item = new ItemAnalysis;
+                            $item->question_id = $question->questions->id;
+                            $item->status = 'Correct';
+                            $item->student_id = Auth::user()->id;
+                            $item->save();
+                        }
+                        else{
+                            $item = new ItemAnalysis;
+                            $item->question_id = $question->questions->id;
+                            $item->status = 'Incorrect';
+                            $item->student_id = Auth::user()->id;
+                            $item->save(); 
+                        }
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
             }
+            // return $score;
+    
+            $scores = new Score;
+            $scores->score = $score;
+            $scores->scoreType = 'full';
+            $scores->exam_id = $exam->id;
+            $scores->student_id = Auth::user()->id;
+            $scores->save();
+    
+            $status = new ExamStatus;
+            $status->status = 1;
+            $status->student_id = Auth::user()->id;
+            $status->exam_id = $exam->id;
+            $status->save();
+    
+            toast('Exam Submitted Successfully','success','top');
+            return redirect()->route('student.dashboard');
         }
-        // return $score;
-
-        $scores = new Score;
-        $scores->score = $score;
-        $scores->scoreType = 'full';
-        $scores->exam_id = $exam->id;
-        $scores->student_id = Auth::user()->id;
-        $scores->save();
-
-        $status = new ExamStatus;
-        $status->status = 1;
-        $status->student_id = Auth::user()->id;
-        $status->exam_id = $exam->id;
-        $status->save();
-
-        toast('Exam Submitted Successfully','success','top');
-        return redirect()->route('student.dashboard');
+        else{
+            toast('Please input the required fields!','error','top')->autoClose(5000);
+            return redirect()->route('student.takeExam', $exam->id);
+        }
     }
 }

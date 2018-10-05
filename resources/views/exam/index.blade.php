@@ -17,6 +17,7 @@
 								<th>Exam Time</th>
 								<th>Exam Date</th>
 								<th>Total Items</th>
+								<th>Duration</th>
 								<th>Instructor</th>
 								<th>Actions</th>
 							</tr>
@@ -28,6 +29,7 @@
 								<th>Exam Time</th>
 								<th>Exam Date</th>
 								<th>Total Items</th>
+								<th>Duration</th>
 								<th>Instructor</th>
 								<th>Actions</th>
 							</tr>
@@ -40,6 +42,18 @@
 								<td>{{ Carbon\Carbon::parse($exam->exam_time)->format('h:m:A') }}</td>
 								<td>{{ Carbon\Carbon::parse($exam->exam_date)->format('M d, Y') }}</td>
 								<td>{{ $exam->total_items }}</td>
+								<td>
+									@php
+									if ($exam->duration >= 60) {
+										$hour = $exam->duration / 60;
+										$minutes = $exam->duration % 60;
+										echo $hour . "h ".$minutes."minutes";
+									}
+									else{
+										echo $exam->duration."minutes";
+									}
+									@endphp
+								</td>
 								<td>{{ $exam->instructor->fullName }}</td>
 								<td>
 									<a href="#" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o"></i></a>

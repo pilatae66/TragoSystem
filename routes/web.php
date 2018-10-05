@@ -15,7 +15,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 Route::get('/', function () {
-    return redirect('stud/login');
+    return redirect('stud/login/username');
 });
 
 Auth::routes();
@@ -42,9 +42,17 @@ Route::post('sub/stud', 'StudentController@storeStudent')->name('stud.store');
 
 Route::get('stud/dashboard', 'StudentController@dashboard')->name('student.dashboard');
 
-Route::get('stud/login', 'Student\LoginController@showLoginForm')->name('student.login');
+Route::post('stud/login/passs', 'Student\LoginController@LoginForm')->name('student.loginpass');
+
+Route::get('stud/{student}/login', 'Student\LoginController@showLoginForm')->name('student.showloginpass');
+
+Route::get('stud/login/username', 'Student\LoginController@showUsernameForm')->name('student.username');
 
 Route::get('stud/register', 'StudentController@create')->name('student.register');
+
+Route::get('stud/{student}/register', 'Student\LoginController@createPassword')->name('student.registerPassword');
+
+Route::post('stud/{student}/register', 'Student\LoginController@registerStudent')->name('student.registerStudent');
 
 Route::post('stud/login', 'Student\LoginController@login')->name('student.login');
 
@@ -64,6 +72,8 @@ Route::get('admins/dashboard', 'AdminController@dashboard')->name('admin.dashboa
 
 Route::get('admins/instructor', 'AdminController@instructorIndex')->name('admin.instructorIndex');
 
+Route::post('admins/instructor', 'AdminController@instructorStore')->name('admin.instructorStore');
+
 Route::get('admins/instructor/{instructor}/edit', 'AdminController@instructorEdit')->name('admin.instructorEdit');
 
 Route::patch('admins/instructor/{instructor}', 'AdminController@instructorUpdate')->name('admin.instructorUpdate');
@@ -71,6 +81,8 @@ Route::patch('admins/instructor/{instructor}', 'AdminController@instructorUpdate
 Route::delete('admins/instructor/{instructor}', 'AdminController@instructorDestroy')->name('admin.instructorDestroy');
 
 Route::get('admins/student', 'AdminController@studentIndex')->name('admin.studentIndex');
+
+Route::post('admins/student', 'AdminController@studentStore')->name('admin.studentStore');
 
 Route::get('admins/student/{student}/edit', 'AdminController@studentEdit')->name('admin.studentEdit');
 
@@ -82,7 +94,15 @@ Route::delete('admins/student/{student}', 'AdminController@studentDestroy')->nam
 
 Route::resource('instructor', 'InstructorController');
 
-Route::get('inst/login', 'Instructor\LoginController@showLoginForm')->name('instructor.login');
+Route::get('inst/login/username', 'Instructor\LoginController@showLoginForm')->name('instructor.username');
+
+Route::post('inst/login/passs', 'Instructor\LoginController@LoginForm')->name('instructor.loginpass');
+
+Route::get('inst/{instructor}/login', 'Instructor\LoginController@showLoginForms')->name('instructor.showloginpass');
+
+Route::get('inst/{instructor}/register', 'Instructor\LoginController@createPassword')->name('instructor.registerPassword');
+
+Route::post('inst/{instructor}/register', 'Instructor\LoginController@registerInstructor')->name('instructor.registerInstructor');
 
 Route::post('inst/login', 'Instructor\LoginController@login')->name('instructor.login');
 

@@ -6,6 +6,9 @@
 			<div class="card">
 				<div class="card-header bg-dark text-white">
 					Instructor
+					<div class="pull-right">
+						<a href="{{ route('inst.register') }}" class="btn btn-dark btn-sm"><i class="fa fa-plus"></i></a>
+					</div>
 				</div>
 				<div class="card-body">
 					<h5 class="card-title">Instructor List</h5>
@@ -15,6 +18,7 @@
 								<th>Instructor ID</th>
 								<th>Instructor Name</th>
 								<th>Date Registered</th>
+								<th>Has Password?</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -23,6 +27,7 @@
 								<th>Instructor ID</th>
 								<th>Instructor Name</th>
 								<th>Date Registered</th>
+								<th>Has Password?</th>
 								<th>Actions</th>
 							</tr>
 						</tfoot>
@@ -32,6 +37,7 @@
 								<td>{{ $instructor->id }}</td>
 								<td>{{ $instructor->fullName }}</td>
 								<td>{{ $instructor->created_at->toFormattedDateString() }}</td>
+								<td>{{ $instructor->hasPassword == 0 ? 'False' : 'True' }}</td>
 								<td>
 									<a href="{{ route('admin.instructorEdit', $instructor->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o"></i></a>
 									<form action="{{ route('admin.instructorDestroy', $instructor->id) }}" style="display:inline-block" method="post">

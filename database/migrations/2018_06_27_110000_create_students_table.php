@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->string('year');
             $table->string('course');
             $table->string('password');
+            $table->boolean('hasPassword')->nullable()->default('0');
             $table->rememberToken();
             $table->timestamps();
         });

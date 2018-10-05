@@ -6,6 +6,9 @@
 			<div class="card">
 				<div class="card-header bg-dark text-white">
 					Student
+					<div class="pull-right">
+						<a href="{{ route('student.register') }}" class="btn btn-dark btn-sm"><i class="fa fa-plus"></i></a>
+					</div>
 				</div>
 				<div class="card-body">
 					<h5 class="card-title">Student List</h5>
@@ -17,6 +20,7 @@
 								<th>Year</th>
 								<th>Course</th>
 								<th>Date Registered</th>
+								<th>Has Password?</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -27,6 +31,7 @@
 								<th>Year</th>
 								<th>Course</th>
 								<th>Date Registered</th>
+								<th>Has Password?</th>
 								<th>Actions</th>
 							</tr>
 						</tfoot>
@@ -38,6 +43,7 @@
 								<td>{{ $student->year }}</td>
 								<td>{{ $student->course }}</td>
 								<td>{{ $student->created_at->toFormattedDateString() }}</td>
+								<td>{{ $student->hasPassword == 0 ? 'False' : 'True' }}</td>
 								<td>
 									<a href="{{ route('admin.studentEdit', $student->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil-square-o"></i></a>
 									<form action="{{ route('admin.studentDestroy', $student->id) }}" style="display:inline-block" method="post">

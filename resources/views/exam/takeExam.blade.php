@@ -2,27 +2,28 @@
 @section('content')
 
 <div class="container">
-	<div class="row mt-5">
+	<div class="row">
 		<div class="col-md-12 mr-auto ml-auto">
 			<div class="card">
 				<div class="card-header bg-dark text-white">
 					Questionnaire
+					<div class="pull-right row">Time Left:&nbsp; <div id="timer"></div></div>
 				</div>
-				<div class="card-body">
+				<div class="card-body" style="max-height:350px; overflow-y:auto">
 					<form action="{{ route('student.submitExam', $questionnaire[0]->exam_id) }}" method="post">
 						@csrf
 						@php
 							$question_count = 0;
 						@endphp
 						@foreach ($questionnaire as $key => $item)
-							<div class="row mt-5">
+							<div class="row">
 								<div class="col-md-11 mr-auto ml-auto">
 									<div class="row mb-5">
 										<div class="col-md-12">
 											{{ $key+1 . ". ". $item->questions->question }}
 										</div>
 									</div>
-									<div class="row">
+									<div class="row mb-5">
 										@switch($item->questions->questionType)
 											@case('Identification')
 												<div class="col">
@@ -47,21 +48,19 @@
 											@case('Multiple')
 												@foreach ($item->questions->answers as $key2 => $item)
 												<div class="col">
-													<br><input type="radio" name="answer[]" id="" value="{{ $item->ansKey }}"> {{ $item->ansKey }}
+													<br><input type="radio" name="answer[{{ $key }}]" id="" value="{{ $item->ansKey }}"> {{ $item->ansKey }}
 												</div>
 												@endforeach
 												@break
 											@default
 												@break
 										@endswitch
-										
-										<div class="mt-5"></div>
 									</div>
 								</div>
 							</div>
 						@endforeach
 					</div>
-					<div class="card-footer bg-dark mt-5 text-white">
+					<div class="card-footer bg-dark text-white">
 						<div class="pull-right">
 							<button class="btn btn-info btn-lg" type="submit">Submit</button>
 						</div>
@@ -71,4 +70,28 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('script')
+	<script>
+		let time = new Date()
+		let timing = time.setMinutes(time.getMinutes() + {{ $exam->duration }})
+
+		decreaseTimer = () => {
+			let x = setInterval(() => {
+				let timer = timing - new Date().getTime()
+				// console.log(timer)
+				let hours = Math.floor((timer % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				let minutes = Math.floor((timer % (1000 * 60 * 60)) / (1000 * 60));
+				let seconds = Math.floor((timer % (1000 * 60)) / 1000);
+				$('#timer').html(hours+":"+minutes+":"+seconds)
+				if(timer < 0){
+					clearInterval(x)
+					swal('Times up!', '','info')
+				}
+			}, 1000);
+		}
+		$(document).ready(() => {
+			this.decreaseTimer()
+		})
+	</script>
 @endsection
