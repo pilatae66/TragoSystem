@@ -19,7 +19,6 @@ class CreateQuestionsTable extends Migration
             $table->string('questionType');
             $table->string('category');
             $table->string('topic');
-
             $table->string('instID');
             $table->foreign('instID')
             ->references('id')->on('users')
