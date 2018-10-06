@@ -17,6 +17,7 @@ class CreateItemAnalysesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('question_id');
             $table->string('status');
+            $table->string('answer_key');
             $table->string('student_id');
             $table->timestamps();
         });
