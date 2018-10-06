@@ -151,11 +151,12 @@ class StudentController extends Controller
                 // return $question->questions->answer->ansKey;
                 switch ($question->questions->questionType) {
                     case 'Identification':
-                        if($question->questions->answer->ansKey == $request->answer[$key]){
+                        if(strtolower($question->questions->answer->ansKey) == strtolower($request->answer[$key])){
                             $score++;
                             $item = new ItemAnalysis;
                             $item->question_id = $question->questions->id;
                             $item->status = 'Correct';
+                            $item->answer_key = $request->answer[$key];
                             $item->student_id = Auth::user()->id;
                             $item->save();
                         }
@@ -163,17 +164,19 @@ class StudentController extends Controller
                             $item = new ItemAnalysis;
                             $item->question_id = $question->questions->id;
                             $item->status = 'Incorrect';
+                            $item->answer_key = $request->answer[$key];
                             $item->student_id = Auth::user()->id;
                             $item->save();
                         }
                         break;
                     
                     case 'ToF':
-                        if($question->questions->answer->ansKey == $request->answer[$key]){
+                        if(strtolower($question->questions->answer->ansKey) == strtolower($request->answer[$key])){
                             $score++;
                             $item = new ItemAnalysis;
                             $item->question_id = $question->questions->id;
                             $item->status = 'Correct';
+                            $item->answer_key = $request->answer[$key];
                             $item->student_id = Auth::user()->id;
                             $item->save();
                         }
@@ -181,6 +184,7 @@ class StudentController extends Controller
                             $item = new ItemAnalysis;
                             $item->question_id = $question->questions->id;
                             $item->status = 'Incorrect';
+                            $item->answer_key = $request->answer[$key];
                             $item->student_id = Auth::user()->id;
                             $item->save();
                         }
@@ -188,11 +192,12 @@ class StudentController extends Controller
                     
                     case 'Multiple':
                     // return $question->questions->answer->where('isAnswerKey', 1)->where('questionID',$question->questions->id)->get();
-                        if($question->questions->answer->where('isAnswerKey', 1)->where('questionID',$question->questions->id)->first()->ansKey == $request->answer[$key]){
+                        if(strtolower($question->questions->answer->where('isAnswerKey', 1)->where('questionID',$question->questions->id)->first()->ansKey) == strtolower($request->answer[$key])){
                             $score++;
                             $item = new ItemAnalysis;
                             $item->question_id = $question->questions->id;
                             $item->status = 'Correct';
+                            $item->answer_key = $request->answer[$key];
                             $item->student_id = Auth::user()->id;
                             $item->save();
                         }
@@ -200,6 +205,7 @@ class StudentController extends Controller
                             $item = new ItemAnalysis;
                             $item->question_id = $question->questions->id;
                             $item->status = 'Incorrect';
+                            $item->answer_key = $request->answer[$key];
                             $item->student_id = Auth::user()->id;
                             $item->save();
                         }
@@ -211,7 +217,7 @@ class StudentController extends Controller
                         foreach ($question->questions->answers as $key1 => $answer) {
                             for ($i=0; $i < count($request->answer[$key]); $i++) { 
                                 # code...
-                                if($answer->ansKey == $request->answer[$key][$i]){
+                                if(strtolower($answer->ansKey) == strtolower($request->answer[$key][$i])){
                                     $count++;
                                 }
                             }
@@ -221,6 +227,7 @@ class StudentController extends Controller
                             $item = new ItemAnalysis;
                             $item->question_id = $question->questions->id;
                             $item->status = 'Correct';
+                            $item->answer_key = $request->answer[$key];
                             $item->student_id = Auth::user()->id;
                             $item->save();
                         }
@@ -228,6 +235,7 @@ class StudentController extends Controller
                             $item = new ItemAnalysis;
                             $item->question_id = $question->questions->id;
                             $item->status = 'Incorrect';
+                            $item->answer_key = $request->answer[$key];
                             $item->student_id = Auth::user()->id;
                             $item->save(); 
                         }

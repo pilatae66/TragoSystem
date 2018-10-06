@@ -129,6 +129,6 @@ class QuestionController extends Controller
     public function dashboard(Question $question)
     {
         $items = ItemAnalysis::where('question_id', $question->id)->get();
-        return view('question.dashboard', compact('items'));
+        return view('question.dashboard', compact('items','question'));
     }
 }

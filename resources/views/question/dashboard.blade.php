@@ -5,7 +5,7 @@
     <div class="row mb-5">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header bg-dark text-white">Exam Statistics</div>
+                <div class="card-header bg-dark text-white">Answer Statistics</div>
                 
                 <div class="card-body">
                     <div class="row">
@@ -42,6 +42,21 @@
                             </div>
                         </div>
                     </div>
+                  @if ($question->answers->count() > 1)
+                    <div class="row mt-5">
+                        @foreach ($question->answers as $key => $answer)
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header bg-dark text-white">{{ $answer->ansKey }}</div>
+                                    <div class="card-body">
+                                        Total Count:
+                                        <div class="pull-right">{{ $items->where('answer_key', $answer->ansKey)->count() }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                  @endif
                 </div>
             </div>
         </div>
@@ -56,6 +71,7 @@
                                 <tr>
                                     <td>Student ID</td>
                                     <td>Student Name</td>
+                                    <td>Inputted Answer</td>
                                     <td>Status</td>
                                 </tr>
                             </thead>
@@ -63,6 +79,7 @@
                                 <tr>
                                     <td>Student ID</td>
                                     <td>Student Name</td>
+                                    <td>Inputted Answer</td>
                                     <td>Status</td>
                                 </tr>
                             </tfoot>
@@ -71,6 +88,7 @@
                                     <tr>
                                         <td>{{ $item->student->id }}</td>
                                         <td>{{ $item->student->fullName }}</td>
+                                        <td>{{ ucwords($item->answer_key) }}</td>
                                         <td>{{ $item->status }}</td>
                                     </tr>
                                 @endforeach
